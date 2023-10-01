@@ -75,7 +75,7 @@ const deletesUser = asyncHandler(async(req,res)=>{
 });
 //Actualizar un usuario
 const updatedaUser = asyncHandler(async(req, res)=>{
-    const {id} = req.params;
+    const {id} = req.user;
     try{
         const updatedaUser = await User.findByIdAndUpdate(id, {
             firstname:req?.body?.firstname,
@@ -91,6 +91,41 @@ const updatedaUser = asyncHandler(async(req, res)=>{
         throw new Error(error);
     }
 });
+//Bloquear usuario
+const blockUser=asyncHandler(async(req,res)=>{
+    const {id} = req.user;
+    try{
+        const block= await User.findByIdAndUpdate(id,{
+            isBlocked:true,
+        },{
+            new:true,
+        }
+        );
+        res.json({
+            message: "Usuario bloqueado",
+        });
+    }catch(error){
+        throw new Error(error);
+    }
+});
+//Desbloquear usuario
+const unblockUser=asyncHandler(async(req,res)=>{
+    const {id} = req.params;
+    try{
+        const unblock=await User.findByIdAndUpdate(id,{
+            isBlocked:false,
+        },{
+            new:true,
+        }
+        );
+        res.json({
+            message: "Usuario desbloqueado",
+        });
+    }catch(error){
+        throw new Error(error);
+    }
+});
+
 //Borrar todos los usuarios
 /*const deleteaUser = asyncHandler(async(req,res)=>{
     try{
@@ -105,4 +140,6 @@ module.exports={createUser,
     getaUser, 
     getsUser, 
     deletesUser, 
-    updatedaUser};
+    updatedaUser,
+    blockUser,
+    unblockUser};
