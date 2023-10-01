@@ -60,4 +60,49 @@ const getsUser = asyncHandler(async(req,res)=>{
     }
 });
 
-module.exports={createUser, loginUserCtrl, getaUser, getsUser};
+//Borrar un usuario
+const deletesUser = asyncHandler(async(req,res)=>{
+    console.log(req.params);
+    const {id} = req.params;
+    try{
+        const deletesUser = await User.findByIdAndDelete(id);
+        res.json({
+            deletesUser,
+        })
+    }catch (error){
+        throw new Error(error);
+    }
+});
+//Actualizar un usuario
+const updatedaUser = asyncHandler(async(req, res)=>{
+    const {id} = req.params;
+    try{
+        const updatedaUser = await User.findByIdAndUpdate(id, {
+            firstname:req?.body?.firstname,
+            lastname: req?.body?.lastname,
+            email: req?.body?.email,
+            mobile: req?.body?.mobile,
+        }, {
+            new: true,
+        }
+        );
+        res.json(updatedaUser);
+    }catch(error){
+        throw new Error(error);
+    }
+});
+//Borrar todos los usuarios
+/*const deleteaUser = asyncHandler(async(req,res)=>{
+    try{
+        const getUsers = await User.delete();
+        res.json(deleteaUser);
+    }catch (error){
+        throw new Error(error);
+    }
+});*/
+module.exports={createUser, 
+    loginUserCtrl, 
+    getaUser, 
+    getsUser, 
+    deletesUser, 
+    updatedaUser};
