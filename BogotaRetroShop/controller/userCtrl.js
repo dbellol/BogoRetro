@@ -3,6 +3,7 @@ const {generateToken}=require('../config/jwtToken');
 const asyncHandler=require("express-async-handler");
 const { validateMongoId } = require('../utils/validateMongodbId');
 const {generateRefreshToken}=require('../config/refreshtoken');
+const jwt=require('jsonwebtoken'); 
 //Crear usuario
 const createUser=asyncHandler(async(req,res)=>{
     const email=req.body.email;
@@ -54,7 +55,14 @@ const handleRefreshToken = asyncHandler(async(req,res)=>{
     const refreshToken = cookie.refreshToken;
     console.log(refreshToken);
     const user = await User.findOne({refreshToken});
-    res.json({user});
+    if(!user) throw new Error("No se recargó el token presente en la base de datos o no hizo match");
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err,decoded)=>{
+        if(err||user.id !== decoded.id){
+            throw new Error("Hay algo mal con el token refresh");
+        }
+        const  accessToken = generateToken(user?._id)
+        res.json({accessToken});
+    });
 });
 //Ver todos los usuarios
 const getaUser = asyncHandler(async(req,res)=>{
