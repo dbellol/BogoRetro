@@ -178,7 +178,19 @@ const unblockUser=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
-
+const updatePassword = asyncHandler(async(req, res)=>{
+    const {_id} = req.user;
+    const {password} = req.body;
+    validateMongoId(_id);
+    const user = await User.findById(_id);
+    if(password){
+        user.password = password;
+        const updatedPassword = await user.save();
+        res.json(updatedPassword);
+    }else{
+        res.json(user);
+    }
+});
 //Borrar todos los usuarios
 /*const deleteaUser = asyncHandler(async(req,res)=>{
     try{
@@ -197,5 +209,6 @@ module.exports={createUser,
     blockUser,
     unblockUser,
     handleRefreshToken, 
-    logout
+    logout,
+    updatePassword,
 };
