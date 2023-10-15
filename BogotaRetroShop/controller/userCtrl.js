@@ -64,6 +64,28 @@ const handleRefreshToken = asyncHandler(async(req,res)=>{
         res.json({accessToken});
     });
 });
+//Logout function
+const logout =asyncHandler(async(req, res)=>{
+    const cookie = req.cookies;
+    if(!cookie?.refreshToken) throw new Error ("No se recargó el token en las cookies");
+    const refreshToken = cookie.refreshToken;
+    const user = await User.findOne({refreshToken});
+    if(!user){
+        res.clearCookie('refreshToken', {
+            httpOnly:true, 
+            secure:true,
+        });
+        return res.sendStatus(204); //forbidden
+    }
+    await User.findOneAndUpdate(refreshToken,{
+        refreshToken: "",
+    });
+    res.clearCookie("refreshToken", {
+        httpOnly:true, 
+        secure:true,
+    });
+    res.sendStatus(204); //forbidden
+});
 //Ver todos los usuarios
 const getaUser = asyncHandler(async(req,res)=>{
     try{
@@ -174,5 +196,6 @@ module.exports={createUser,
     updatedaUser,
     blockUser,
     unblockUser,
-    handleRefreshToken
+    handleRefreshToken, 
+    logout
 };
