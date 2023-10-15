@@ -17,4 +17,13 @@ const getProduct = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
-module.exports={createProduct, getProduct};
+const getAllProduct = asyncHandler(async(req, res)=>{
+    const{id}=req.params;
+    try{
+        const findAllProduct=await Product.find();
+        res.json(findAllProduct);
+    }catch(error){
+        throw new Error(error);
+    }
+})
+module.exports={createProduct, getProduct, getAllProduct};
