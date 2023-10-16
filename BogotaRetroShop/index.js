@@ -10,6 +10,7 @@ const productRouter = require('./routes/productRoute');
 const blogRouter = require('./routes/blogRoutes');
 const categoryRouter = require('./routes/productCategoryRoutes');
 const blogCategoryRouter = require('./routes/productCategoryRoutes');
+const brandRouter=require('./routes/brandRoutes');
 const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const morgan=require('morgan');
 dbConnect();
@@ -25,6 +26,7 @@ app.use('/api/product', productRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/blogcategory', blogCategoryRouter);
+app.use('/api/brand', brandRouter);
 
 
 
