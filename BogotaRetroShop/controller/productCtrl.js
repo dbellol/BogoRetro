@@ -2,7 +2,6 @@ const Product = require("../models/productModel");
 const asyncHandler=require('express-async-handler');
 const slugify=require('slugify');
 const User = require("../models/userModel");
-const productModel = require("../models/productModel");
 const createProduct=asyncHandler(async(req,res)=>{
     try{
         if(req.body.title){
