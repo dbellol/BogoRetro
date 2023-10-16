@@ -4,6 +4,7 @@ const asyncHandler=require("express-async-handler");
 const { validateMongoId } = require('../utils/validateMongodbId');
 const {generateRefreshToken}=require('../config/refreshtoken');
 const jwt=require('jsonwebtoken'); 
+const { sendEmail } = require('./emailCtrol');
 //Crear usuario
 const createUser=asyncHandler(async(req,res)=>{
     const email=req.body.email;
@@ -200,6 +201,26 @@ const updatePassword = asyncHandler(async(req, res)=>{
         throw new Error(error);
     }
 });*/
+const forgotPasswordToken = asyncHandler(async(req,res)=>{
+    const {email} =req.body;
+    const user = await User.findOne({email});
+    if(!user) throw new Error ("Usuario con este email no encontrado");
+    try{
+        const token = await user.createPasswordResetToken();
+        await user.save();
+        const resetURL = `Hola, sigue este link para reiniciar tu contraseña. Este link expirará en 10 minutos, contando desde ahora. <a href='http://localhost:5000/api/user/reset-password/${token}'>Click aqui</>`;
+        const data = {
+            to: email,
+            subject: "Olvidaste tu constraseña link",
+            text: "Hola usuario",
+            html: resetURL,
+        };
+        sendEmail(data);
+        res.json(token);
+    }catch (error){ 
+        throw new Error(error);
+    }
+});
 module.exports={createUser, 
     loginUserCtrl, 
     getaUser, 
@@ -211,4 +232,5 @@ module.exports={createUser,
     handleRefreshToken, 
     logout,
     updatePassword,
+    forgotPasswordToken
 };
