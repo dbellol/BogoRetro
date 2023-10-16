@@ -29,14 +29,14 @@ var blogSchema = new mongoose.Schema({
         type:Boolean,
         default: false,
     },
-    likes:{
+    likes:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
-    disLikes:{
+    }],
+    disLikes:[{
         type:mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
+    }],
     image:{
         type: String,
         default:"https://blueandgreentomorrow.com/wp-content/uploads/2018/06/green-blogging.jpg",
