@@ -50,30 +50,6 @@ const getallCategory=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
-const addToWishList = asyncHandler(async(req,res)=>{
-    const {_id} = req.user;
-    const {prodId} = req.body;
-    try{
-        const user = User.findById(_id);
-        const alreadyAdded= user.wishlist.find((id)=>id.toString()===prodId);
-        if(alreadyAdded){
-            let user = await User.findByIdAndUpdate(_id, {
-                $pull:{wishlist: prodId},
-            },{
-                new:true,
-            });
-            res.json(user);
-        }else{
-            let user = await User.findByIdAndUpdate(_id, {
-                $push:{wishlist: prodId},
-            },{
-                new:true,
-            });
-            res.json(user);
 
-        }
-    }catch(error){
-        throw new Error(error);
-    }
-});
-module.exports={createCategory,updateCategory, deleteCategory, getCategory,getallCategory, addToWishList};
+
+module.exports={createCategory,updateCategory, deleteCategory, getCategory,getallCategory};
