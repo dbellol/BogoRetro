@@ -2,7 +2,7 @@ const User=require('../models/userModel');
 const Product=require('../models/productModel');
 const Car=require('../models/carModel');
 const Order = require('../models/orderModel');
-
+const Coupon = require('../models/couponModel');
 const {generateToken}=require('../config/jwtToken');
 const asyncHandler=require("express-async-handler");
 const  validateMongoId  = require('../utils/validateMongodbId');
@@ -352,6 +352,21 @@ const emptyCar=asyncHandler(async(req, res)=>{
         throw new Error(error);
     }
 });
+const applyCoupon = asyncHandler(async(req,res)=>{
+    const{coupon} = req.body;
+    const{_id}=req.user;
+    validateMongoId(_id)
+    const validCoupon = await Coupon.findOne({name:coupon});
+    if(validCoupon==null){
+        throw new Error("Cupón inválido");
+    }
+    const user = await User.findOne({_id});
+    let {products, carTotal}=await Car.findOne({orderby:user._id}).populate("products.product");
+    let totalAfterDiscount = (carTotal - (carTotal * validCoupon.discount)/100).toFixed(2);
+    await Car.findOneAndUpdate({orderby:user._id},{totalAfterDiscount},{new:true},
+    );
+    res.json(totalAfterDiscount);
+});
 module.exports={createUser, 
     loginUserCtrl, 
     getaUser, 
@@ -371,4 +386,5 @@ module.exports={createUser,
     userCar,
     getUserCar,
     emptyCar,
+    applyCoupon,
 };
