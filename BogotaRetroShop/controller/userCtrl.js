@@ -3,6 +3,7 @@ const Product=require('../models/productModel');
 const Car=require('../models/carModel');
 const Order = require('../models/orderModel');
 const Coupon = require('../models/couponModel');
+const uniqid = require('uniqid');
 const {generateToken}=require('../config/jwtToken');
 const asyncHandler=require("express-async-handler");
 const  validateMongoId  = require('../utils/validateMongodbId');
@@ -10,6 +11,7 @@ const {generateRefreshToken}=require('../config/refreshtoken');
 const jwt=require('jsonwebtoken'); 
 const { sendEmail } = require('./emailCtrol');
 const crypto=require('crypto');
+const { json } = require('body-parser');
 //Crear usuario
 const createUser=asyncHandler(async(req,res)=>{
     const email=req.body.email;
@@ -367,6 +369,73 @@ const applyCoupon = asyncHandler(async(req,res)=>{
     );
     res.json(totalAfterDiscount);
 });
+const createOrder = asyncHandler(async(req,res)=>{
+    const{COD, couponApplied} = req.body;
+    const{_id} = req.user;
+    validateMongoId(_id);
+    try{
+        if(!COD) throw new Error("Create cash order failed");
+        const user = await User.findById(_id);
+        let userCar = await Car.findOne({orderby:user._id});
+        let finalAmount =0;
+        if(couponApplied && userCar.totalAfterDiscount){
+            finalAmount = userCar.totalAfterDiscount;
+        }else{
+            finalAmount = userCar.carTotal;
+        }
+        let newOrder = await new Order({
+            products:userCar.products,
+            paymentIntent:{
+                id: uniqid(),
+                method: "COD",
+                amount: finalAmount,
+                status: "Pago contra entrega",
+                created: Date.now(),
+                currency: "cop",
+            },
+            orderby: user._id,
+            orderStatus: "Pago contra entrega",
+        }).save();
+        let update = userCar.products.map((item)=>{
+            return{
+                updateOne:{
+                filter:{_id:item.product._id},
+                update:{$inc:{quantity: -item.count, sold: +item.count}},
+                },
+            };
+        });
+        const updated = await Product.bulkWrite(update,{});
+        res.json({message:"Realizado"});
+    }catch (error){
+        throw new Error(error);
+    }
+});
+const getOrders = asyncHandler(async(req,res)=>{
+    const{_id} = req.user;
+    validateMongoId(_id);
+    try{
+        const userOrders = await Order.findOne({orderby:_id}).populate("products.product").exec();
+        res.json(userOrders);
+    }catch (error){
+        throw new Error(error);
+    }
+});
+const updateOrders = asyncHandler(async(req,res)=>{
+    const {status} = req.body;
+    const {id} = req.params;
+    validateMongoId(id);
+    try{
+        const updateOrderStatus = await Order.findByIdAndUpdate(id,
+            {
+                orderStatus:status, paymentIntent:{
+                status:status}
+            },
+            {new:true});
+        res.json(updateOrderStatus);
+    }catch(error){
+        throw new Error(error);
+    }
+})
 module.exports={createUser, 
     loginUserCtrl, 
     getaUser, 
@@ -387,4 +456,7 @@ module.exports={createUser,
     getUserCar,
     emptyCar,
     applyCoupon,
+    createOrder,
+    getOrders,
+    updateOrders
 };
