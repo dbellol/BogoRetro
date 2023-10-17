@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const {cloudinaryUploadImg} = require('../utils/cloudinary');
 const validateMongoId = require("../utils/validateMongodbId");
 const fs = require('fs');
+/*Crear producto*/
 const createProduct=asyncHandler(async(req,res)=>{
     try{
         if(req.body.title){
@@ -16,6 +17,7 @@ const createProduct=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Modificar producto*/
 const updateProduct=asyncHandler(async(req,res)=>{
     const{id} = req.params;
     try{
@@ -30,6 +32,7 @@ const updateProduct=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Borrar producto*/
 const deleteProduct=asyncHandler(async(req,res)=>{
     const{id} = req.params;
     try{
@@ -39,6 +42,7 @@ const deleteProduct=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener todos los productos por ID*/
 const getProduct = asyncHandler(async(req,res)=>{
     const{id}=req.params;
     try{
@@ -48,6 +52,7 @@ const getProduct = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener todos los productos sin ID*/
 const getAllProduct = asyncHandler(async(req, res)=>{
     try{
         //Filtrando
@@ -118,6 +123,7 @@ const getAllProduct = asyncHandler(async(req, res)=>{
     }
 });
 })
+/*Añadir a lista de deseos*/
 const addToWishList = asyncHandler(async(req,res)=>{
     const {_id} = req.user;
     const {prodId} = req.body;
@@ -144,10 +150,12 @@ const addToWishList = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Calificar*/
 const rating = asyncHandler(async(req,res)=>{
     const{_id} = req.user;
     const{star, prodId, comment}=req.body;
     try{
+        /*Producto con comentarios*/
         const product = await Product.findById(prodId);
         let alreadyRated = product.ratings.find((userId)=>userId.postedby.toString()===_id.toString());
         if(alreadyRated){
@@ -163,6 +171,7 @@ const rating = asyncHandler(async(req,res)=>{
                 }
             );
         }else{
+            /*Producto con puntuaciones*/
             const rateProduct = await Product.findByIdAndUpdate(prodId,{
                 $push:{
                     ratings:{
@@ -176,6 +185,7 @@ const rating = asyncHandler(async(req,res)=>{
             }
             );
         }
+        /*Tener todas las puntuaciones del producto*/
         const getAllRatings = await Product.findById(prodId);
         let totalRating = getAllRatings.ratings.length;
         let ratingSum = getAllRatings.ratings.map((item)=>item.star).reduce((prev,curr)=>prev+curr,0);
@@ -190,6 +200,7 @@ const rating = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Cargar imagen del producto*/
 const uploadImages=asyncHandler(async(req,res)=>{
     const{id}=req.params;
     validateMongoId(id);

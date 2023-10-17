@@ -1,7 +1,7 @@
 const Coupon = require('../models/couponModel');
 const validateMongoId = require("../utils/validateMongodbId");
 const asyncHandler = require('express-async-handler');
-
+/*Crear cupón*/
 const createCoupon = asyncHandler(async(req,res)=>{
     try{
         const newCoupon = await Coupon.create(req.body);
@@ -11,7 +11,7 @@ const createCoupon = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
-
+/*Tener todos los cupones*/
 const getAllCoupon = asyncHandler(async(req,res)=>{
     try{
         const getAllCoupon = await Coupon.find();
@@ -21,6 +21,7 @@ const getAllCoupon = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Modificar los cupones por id*/
 const updateAllCoupon = asyncHandler(async(req,res)=>{
     const {id} = req.params;
     validateMongoId(id);
@@ -34,6 +35,7 @@ const updateAllCoupon = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Borrar los cupones por id*/
 const deleteCoupon = asyncHandler(async(req,res)=>{
     const {id} = req.params;
     validateMongoId(id);

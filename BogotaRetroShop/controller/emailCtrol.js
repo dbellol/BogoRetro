@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const asyncHandler = require('express-async-handler');
-
+/*Enviar email para recuperar contraseña*/
 const sendEmail = asyncHandler (async (data, req, res)=>{
     let transporter = nodemailer.createTransport({
         host:"smtp.gmail.com",

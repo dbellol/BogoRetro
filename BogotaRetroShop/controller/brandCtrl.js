@@ -2,6 +2,7 @@ const Brand = require('../models/brandModel');
 const asyncHandler=require('express-async-handler');
 const validateMongoId = require("../utils/validateMongodbId");
 const User = require('../models/userModel');
+/*Crear brand*/
 const createBrand=asyncHandler(async(req,res)=>{
     try{
         const newBrand=await Brand.create(req.body);
@@ -10,6 +11,7 @@ const createBrand=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Modificar brand*/
 const updateBrand=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -22,6 +24,7 @@ const updateBrand=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Borrar brand*/
 const deleteBrand=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -32,6 +35,7 @@ const deleteBrand=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener un brand por id*/
 const getBrand=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -42,6 +46,7 @@ const getBrand=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener todos los brand*/
 const getallBrand=asyncHandler(async(req,res)=>{
     try{
         const getAllBrand=await Brand.find();

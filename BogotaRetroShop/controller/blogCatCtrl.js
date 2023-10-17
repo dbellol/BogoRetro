@@ -1,7 +1,7 @@
 const Category = require('../models/blogCarModel');
 const asyncHandler=require('express-async-handler');
 const validateMongoId = require("../utils/validateMongodbId");
-
+/*Crear categoria de blog*/
 const createCategory=asyncHandler(async(req,res)=>{
     try{
         const newCategory=await Category.create(req.body);
@@ -10,6 +10,7 @@ const createCategory=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Modificar categoria de blog*/
 const updateCategory=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -22,6 +23,7 @@ const updateCategory=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Borrar categoria de blog*/
 const deleteCategory=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -32,6 +34,7 @@ const deleteCategory=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener una categoria de blog*/
 const getCategory=asyncHandler(async(req,res)=>{
     const {id}=req.params;
     validateMongoId(id);
@@ -42,6 +45,7 @@ const getCategory=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener todas las categorias de blog*/
 const getallCategory=asyncHandler(async(req,res)=>{
     try{
         const getAllCategory=await Category.find();

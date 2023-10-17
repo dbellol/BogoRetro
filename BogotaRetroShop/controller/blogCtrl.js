@@ -4,6 +4,8 @@ const asyncHandler=require('express-async-handler');
 const validateMongoId = require("../utils/validateMongodbId");
 const {cloudinaryUploadImg} = require('../utils/cloudinary');
 const fs = require('fs');
+
+/*Crear blog*/
 const createBlog = asyncHandler(async(req,res)=>{
     try{
         const newBlog = await Blog.create(req.body);
@@ -12,6 +14,7 @@ const createBlog = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Modificar blog*/
 const updateBlog = asyncHandler(async(req,res)=>{
     const {id} = req.params;
     validateMongoId(id);
@@ -24,6 +27,7 @@ const updateBlog = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener un blog por id*/
 const getBlog = asyncHandler(async(req,res)=>{
     const {id} = req.params;
     validateMongoId(id);
@@ -40,6 +44,7 @@ const getBlog = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Tener todos los blogs*/
 const getAllBlogs = asyncHandler(async(req,res)=>{
     try{
         const getAllBlogsBlog = await Blog.find();
@@ -48,6 +53,7 @@ const getAllBlogs = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 })
+/*Borrar un blog*/
 const deleteBlog = asyncHandler(async(req,res)=>{
     const {id} = req.params;
     validateMongoId(id);
@@ -58,6 +64,7 @@ const deleteBlog = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Likear un blog*/
 const likeTheBlog = asyncHandler(async (req, res) => {
  const {blogId} =req.body;
  validateMongoId(blogId);
@@ -93,7 +100,7 @@ const likeTheBlog = asyncHandler(async (req, res) => {
     res.json(blog);
   }
 });
-
+/*Dislikear un blog*/
 const dislikeTheBlog = asyncHandler(async (req, res) => {
   const {blogId} =req.body;
   validateMongoId(blogId);
@@ -129,7 +136,7 @@ const dislikeTheBlog = asyncHandler(async (req, res) => {
      res.json(blog);
    }
  });
- 
+ /*Cargar imagenes*/
  const uploadImages=asyncHandler(async(req,res)=>{
   const{id}=req.params;
   validateMongoId(id);
@@ -154,8 +161,5 @@ const dislikeTheBlog = asyncHandler(async (req, res) => {
   }catch(error){
       throw new Error(error);
   }
-})
-
-  
-
+});
 module.exports={createBlog,updateBlog,getBlog,getAllBlogs,deleteBlog,likeTheBlog,dislikeTheBlog, uploadImages};
