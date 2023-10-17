@@ -2,6 +2,8 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
+
+/*Donde guardar las imagenes*/
 const storage=multer.diskStorage({
     destination: function (req, file, cb){
         cb(null, path.join(__dirname,"../public/images"));
@@ -11,7 +13,7 @@ const storage=multer.diskStorage({
         cb(null, file.fieldname+"-"+uniqueSuffix+".jpeg");
     },
 });
-
+/*Filtro que solo acepta las imagenes en JPEG*/
 const multerFilter = (req, file, cb)=>{
     if(file.mimetype.startsWith("image")){
         cb(null, true);
@@ -21,6 +23,7 @@ const multerFilter = (req, file, cb)=>{
         }, false);
     };
 };
+/*Cargar foto*/
 const uploadPhoto = multer({
     storage: storage,
     fileFilter: multerFilter,
@@ -28,6 +31,7 @@ const uploadPhoto = multer({
         fileSize:2000000
     },
 });
+/*Recalcular el tamaño de la imagen del producto*/
 const productImgResize=async(req, res, next)=>{
     if(!req.files) return next();
     await Promise.all(
@@ -38,6 +42,7 @@ const productImgResize=async(req, res, next)=>{
     );
     next();
 }
+/*Recalcular el tamaño de la imagen del blog*/
 const blogImgResize=async(req, res, next)=>{
     if(!req.files) return next();
     await Promise.all(
