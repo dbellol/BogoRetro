@@ -1,7 +1,11 @@
 const User=require('../models/userModel');
+const Product=require('../models/productModel');
+const Car=require('../models/carModel');
+const Order = require('../models/orderModel');
+
 const {generateToken}=require('../config/jwtToken');
 const asyncHandler=require("express-async-handler");
-const { validateMongoId } = require('../utils/validateMongodbId');
+const  validateMongoId  = require('../utils/validateMongodbId');
 const {generateRefreshToken}=require('../config/refreshtoken');
 const jwt=require('jsonwebtoken'); 
 const { sendEmail } = require('./emailCtrol');
@@ -50,6 +54,36 @@ const loginUserCtrl=asyncHandler(async(req,res)=>{
         throw new Error("Contraseña o usuario invalido");
     }
 });
+//Admin login
+const loginAdmin=asyncHandler(async(req,res)=>{
+    const {email, password} = req.body;
+    //Verificar si un usuario existe o no
+    const findAdmin=await User.findOne({email});
+    if(findAdmin.role !== 'admin') throw new Error("No está autorizado");
+    if(findAdmin && (await findAdmin.isPasswordMatched(password))){
+        const refreshToken=await generateRefreshToken(findAdmin?._id);
+        const updateuser=await User.findByIdAndUpdate(findAdmin.id,{
+            refreshToken: refreshToken,
+            },{
+                new:true
+            }
+        );
+        res.cookie('refreshToken',refreshToken,{
+            httpOnly:true,
+            maxAge:72*60*60*1000,
+        });
+        res.json({
+            _id: findAdmin?._id,
+            firstname: findAdmin?.firstname,
+            lastname: findAdmin?.lastname,
+            email: findAdmin?.email,
+            mobile: findAdmin?.mobile,
+            token: generateToken(findAdmin?._id),
+        });
+    }else{
+        throw new Error("Contraseña o usuario invalido");
+    }
+});
 //Handle refresh token 
 const handleRefreshToken = asyncHandler(async(req,res)=>{
     const cookie = req.cookies;
@@ -88,6 +122,22 @@ const logout =asyncHandler(async(req, res)=>{
     });
     res.sendStatus(204); //forbidden
 });
+//Guardar direccion usuario
+const saveAdress = asyncHandler(async(req,res)=>{
+    const {_id} = req.user;
+    validateMongoId(_id);
+    try{
+        const updatedAddress = await User.findByIdAndUpdate(_id, {
+            address:req?.body?.address,
+        }, {
+            new: true,
+        }
+        );
+        res.json(updatedAddress);
+    }catch(error){
+        throw new Error(error);
+    }
+})
 //Ver todos los usuarios
 const getaUser = asyncHandler(async(req,res)=>{
     try{
@@ -236,7 +286,72 @@ const resetPassword = asyncHandler(async(req,res)=>{
     user.passwordResetExpires=undefined;
     await user.save();
     res.json(user);
-})
+});
+const getWishList = asyncHandler(async(req,res)=>{
+    const {id} = req.user;
+    try{
+        const findUser = await User.findById(id).populate("wishlist");
+        res.json(findUser);
+    }catch(error){
+        throw new Error(error);
+    }
+});
+const userCar = asyncHandler(async(req,res)=>{
+    const {car}=req.body;
+    const {_id}=req.user;
+    validateMongoId(_id);
+    try{
+        let products=[];
+        const user = await User.findById(_id);
+        //check si el usuario tiene un producto en el carro
+        const alreadyExistCar = await Car.findOne({ orderby: user._id });
+        if(alreadyExistCar){
+            await Car.deleteOne({ _id: alreadyExistCar._id });
+        }
+        for(let i=0; i<car.length; i++){
+            let object ={};
+            object.product = car[i]._id;
+            object.count = car[i].count;
+            object.color = car[i].color;
+            let getPrice = await Product.findById(car[i]._id).select("price").exec();
+            object.price = getPrice.price;
+            products.push(object);
+        };
+        let carTotal=0;
+        for (let i = 0; i<products.length;i++){
+            carTotal = carTotal+products[i].price*products[i].count;
+        }
+        let newCar = await new Car({
+            products, 
+            carTotal, 
+            orderby: user?._id,
+        }).save();
+        res.json(newCar);
+    }catch (error){
+        throw new Error(error);
+    }
+});
+const getUserCar = asyncHandler(async(req,res)=>{
+    const{_id}=req.user;
+    validateMongoId(_id)
+    try{
+        const car = await Car.findOne({orderby:_id}).populate("products.product");
+        res.json(car);
+    }catch (error){
+        throw new Error(error);
+    }
+});
+const emptyCar=asyncHandler(async(req, res)=>{
+    const{_id}=req.user;
+    validateMongoId(_id)
+    try{
+        const user = await User.findOne({_id});
+        const car = await Car.findOneAndRemove({orderby:user._id});
+        res.json(car);
+    }catch (error){
+        throw new Error(error);
+    }
+});
 module.exports={createUser, 
     loginUserCtrl, 
     getaUser, 
@@ -249,5 +364,11 @@ module.exports={createUser,
     logout,
     updatePassword,
     forgotPasswordToken,
-    resetPassword
+    resetPassword,
+    loginAdmin,
+    getWishList,
+    saveAdress,
+    userCar,
+    getUserCar,
+    emptyCar,
 };
