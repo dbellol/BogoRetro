@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose");
-
+/*Conexion de la BD con mongoose*/
 const dbConnect = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URL, {
