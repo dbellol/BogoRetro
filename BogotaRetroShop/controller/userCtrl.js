@@ -232,6 +232,7 @@ const unblockUser=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Actualizar contraseña*/
 const updatePassword = asyncHandler(async(req, res)=>{
     const {_id} = req.user;
     const {password} = req.body;
@@ -254,6 +255,7 @@ const updatePassword = asyncHandler(async(req, res)=>{
         throw new Error(error);
     }
 });*/
+/*Olvidaste tu constrsseña? correo*/
 const forgotPasswordToken = asyncHandler(async(req,res)=>{
     const {email} =req.body;
     const user = await User.findOne({email});
@@ -274,6 +276,7 @@ const forgotPasswordToken = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Reset contraseña en el correo*/
 const resetPassword = asyncHandler(async(req,res)=>{
     const {password}= req.body;
     const {token}=req.params;
@@ -289,6 +292,7 @@ const resetPassword = asyncHandler(async(req,res)=>{
     await user.save();
     res.json(user);
 });
+/*Lista de deseos*/
 const getWishList = asyncHandler(async(req,res)=>{
     const {id} = req.user;
     try{
@@ -298,6 +302,7 @@ const getWishList = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*ver Carrito de compras por usuario*/
 const userCar = asyncHandler(async(req,res)=>{
     const {car}=req.body;
     const {_id}=req.user;
@@ -333,6 +338,7 @@ const userCar = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Ver todos los carritos de compras*/
 const getUserCar = asyncHandler(async(req,res)=>{
     const{_id}=req.user;
     validateMongoId(_id)
@@ -343,6 +349,7 @@ const getUserCar = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Vaciar carrito de compras*/
 const emptyCar=asyncHandler(async(req, res)=>{
     const{_id}=req.user;
     validateMongoId(_id)
@@ -354,6 +361,7 @@ const emptyCar=asyncHandler(async(req, res)=>{
         throw new Error(error);
     }
 });
+/*Aplicar cupon*/
 const applyCoupon = asyncHandler(async(req,res)=>{
     const{coupon} = req.body;
     const{_id}=req.user;
@@ -369,6 +377,7 @@ const applyCoupon = asyncHandler(async(req,res)=>{
     );
     res.json(totalAfterDiscount);
 });
+/*Crear una nueva orden con el cupon*/
 const createOrder = asyncHandler(async(req,res)=>{
     const{COD, couponApplied} = req.body;
     const{_id} = req.user;
@@ -410,6 +419,7 @@ const createOrder = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Ver todas las ordenes*/
 const getOrders = asyncHandler(async(req,res)=>{
     const{_id} = req.user;
     validateMongoId(_id);
@@ -420,6 +430,7 @@ const getOrders = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
+/*Actualizar Ordenes*/
 const updateOrders = asyncHandler(async(req,res)=>{
     const {status} = req.body;
     const {id} = req.params;
