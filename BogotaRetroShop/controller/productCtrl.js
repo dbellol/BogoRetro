@@ -2,7 +2,7 @@ const Product = require("../models/productModel");
 const asyncHandler=require('express-async-handler');
 const slugify=require('slugify');
 const User = require("../models/userModel");
-const {cloudinaryUploadImg} = require('../utils/cloudinary');
+const {cloudinaryUploadImg, cloudinaryDeleteImg} = require('../utils/cloudinary');
 const validateMongoId = require("../utils/validateMongodbId");
 const fs = require('fs');
 /*Crear producto*/
@@ -228,4 +228,33 @@ const uploadImages=asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 })
-module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating, uploadImages};
+/*Borrar imagen*/
+const deleteImg = asyncHandler(async (req, res) => {
+    const { id } = req.params; // Esto probablemente se refiera al ID del producto.
+    validateMongoId(id);
+    try {
+        const { imgId } = req.body; // Tomar el ID de la imagen desde el cuerpo de la solicitud.
+
+        // Borra la imagen usando Cloudinary.
+        await cloudinaryDeleteImg(imgId);
+
+        // Encuentra el producto y actualiza sus imágenes.
+        const product = await Product.findById(id);
+
+        // Filtra las imágenes para quitar la que se ha borrado.
+        const updatedImages = product.images.filter(img => img !== imgId);
+
+        // Actualiza el producto en la base de datos.
+        const updatedProduct = await Product.findByIdAndUpdate(id, {
+            images: updatedImages
+        }, {
+            new: true
+        });
+
+        res.json(updatedProduct);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating, uploadImages, deleteImg};
