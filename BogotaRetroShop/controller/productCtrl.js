@@ -201,28 +201,26 @@ const rating = asyncHandler(async(req,res)=>{
     }
 });
 /*Cargar imagen del producto*/
-const uploadImages=asyncHandler(async(req,res)=>{
-    const{_id}= req.user;
-    try{
-        const uploader=(path)=>cloudinaryUploadImg(path,"images");
-        const urls=[];
+const uploadImages = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    try {
+        const urls = [];
         const files = req.files;
-        for(const file of files){
-            const{path}=file;
-            const newpath = await uploader(path);
+
+        for (const file of files) {
+            const newpath = await cloudinaryUploadImg(file.buffer);
             console.log(newpath);
-            urls.push(newpath);
-            console.log(file);
-            fs.unlinkSync(path);
+            urls.push(newpath.url);
         }
-        const images =urls.map((file)=>{
-            return file;
-        })
-        res.json(images);
-    }catch(error){
-        throw new Error(error);
+
+        res.json(urls);
+
+    } catch (error) {
+        console.error("Error in uploadImages:", error);
+        res.status(500).send("Error uploading images");
     }
-})
+});
+
 /*Borrar imagen*/
 const deleteImg = asyncHandler(async (req, res) => {
     const { id } = req.params; // Esto probablemente se refiera al ID del producto.
