@@ -201,53 +201,39 @@ const rating = asyncHandler(async(req,res)=>{
     }
 });
 /*Cargar imagen del producto*/
-const uploadImages = asyncHandler(async (req, res) => {
-    const { _id } = req.user;
-    try {
-        const urls = [];
+const uploadImages=asyncHandler(async(req,res)=>{
+    const{_id}= req.user;
+    try{
+        const uploader=(path)=>cloudinaryUploadImg(path,"images");
+        const urls=[];
         const files = req.files;
 
-        for (const file of files) {
-            const newpath = await cloudinaryUploadImg(file.buffer);
+        for(const file of files){
+            const{path}=file;
+            const newpath = await uploader(path);
             console.log(newpath);
-            urls.push(newpath.url);
+            urls.push(newpath);
+            console.log(file);
+            fs.unlinkSync(path);
         }
-
-        res.json(urls);
-
-    } catch (error) {
-        console.error("Error in uploadImages:", error);
-        res.status(500).send("Error uploading images");
-    }
-});
-
-/*Borrar imagen*/
-const deleteImg = asyncHandler(async (req, res) => {
-    const { id } = req.params; // Esto probablemente se refiera al ID del producto.
-    validateMongoId(id);
-    try {
-        const { imgId } = req.body; // Tomar el ID de la imagen desde el cuerpo de la solicitud.
-
-        // Borra la imagen usando Cloudinary.
-        await cloudinaryDeleteImg(imgId);
-
-        // Encuentra el producto y actualiza sus imágenes.
-        const product = await Product.findById(id);
-
-        // Filtra las imágenes para quitar la que se ha borrado.
-        const updatedImages = product.images.filter(img => img !== imgId);
-
-        // Actualiza el producto en la base de datos.
-        const updatedProduct = await Product.findByIdAndUpdate(id, {
-            images: updatedImages
-        }, {
-            new: true
-        });
-
-        res.json(updatedProduct);
-    } catch (error) {
+        const images =urls.map((file)=>{
+            return file;
+        })
+        res.json(images);
+    }catch(error){
         throw new Error(error);
     }
 });
 
-module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating, uploadImages, deleteImg};
+/*Borrar imagen*/
+const deleteImages=asyncHandler(async(req,res)=>{
+    const{id}= req.params;
+    try{
+        const deleted=cloudinaryDeleteImg(id,"images");
+        res.json({message:"Borrado"});
+    }catch(error){
+        throw new Error(error);
+    }
+});
+
+module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating, uploadImages, deleteImages};

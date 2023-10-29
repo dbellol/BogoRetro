@@ -13,7 +13,6 @@ const blogCategoryRouter = require('./routes/productCategoryRoutes');
 const brandRouter=require('./routes/brandRoutes');
 const couponRouter=require('./routes/couponRoute');
 const colorRouter=require('./routes/colorRoute');
-
 const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const morgan=require('morgan');
 dbConnect();

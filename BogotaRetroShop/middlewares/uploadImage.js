@@ -25,7 +25,7 @@ const multerFilter = (req, file, cb)=>{
 };
 /*Cargar foto*/
 const uploadPhoto = multer({
-    storage: multer.memoryStorage(),
+    storage: storage,
     fileFilter: multerFilter,
     limits: {
         fileSize: 2000000
@@ -37,17 +37,11 @@ const productImgResize = async (req, res, next) => {
     if (!req.files) return next();
 
     await Promise.all(
-        req.files.map(async (file) => {
-            const outputBuffer = await sharp(file.buffer)
-                .resize(300, 300)
-                .toFormat('jpeg')
-                .jpeg({ quality: 90 })
-                .toBuffer();
-            
-            file.buffer = outputBuffer; // reassigning the processed image back to file.buffer
+        req.files.map(async(file)=>{
+            await sharp(file.path).resize(300,300).toFormat('jpeg').jpeg({quality:90}).toFile(`public/images/products/${file.filename}`);
+            fs.unlinkSync(`public/images/products/${file.filename}`);
         })
-    );
-
+        );
     next();
 }
 
