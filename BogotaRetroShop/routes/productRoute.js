@@ -5,7 +5,7 @@ const { uploadPhoto, productImgResize } = require('../middlewares/uploadImage');
 const router = express.Router();
 
 router.post('/', authMiddleware, isAdmin, createProduct);
-router.put('/upload/:id', authMiddleware,isAdmin,uploadPhoto.array("images",10), productImgResize,uploadImages),
+router.put('/upload', authMiddleware,isAdmin,uploadPhoto.array("images",10), productImgResize,uploadImages),
 router.get('/:id', getProduct);
 router.put('/wishlist', authMiddleware, addToWishList);
 router.put('/rating', authMiddleware, rating);
