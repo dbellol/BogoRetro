@@ -93,3 +93,18 @@ a{
 .header-bottom .dropdown-item:hover{
   background-color: #b0bdb2;
 }
+
+/*Aquí termina el header*/
+/*Empieza el footer*/
+footer{
+  background-color: var(--color-000000);
+}
+footer:not(:first-child){
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+footer .input-group-text{
+  background-color: var(--color-000000);
+  color: white;
+  padding: 8px 17px;
+}
+/*Termina el footer*/

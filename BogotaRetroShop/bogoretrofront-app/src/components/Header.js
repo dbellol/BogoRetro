@@ -11,7 +11,7 @@ const Header = () => {
             <p  className='text-white mb-0'> Envíos gratis por compras mayores a $100.000</p>
           </div>
           <div className='col-6'>
-            <p className='text-end text-white'> Puedes llamar: <a className="text-white" href='tel:+57 3013382481'>+57 3013382481 </a></p>
+            <p className='text-end text-white'> Puedes llamar: <a className="text-white" href='tel:+57 3013382481'>+57 3013382482 </a></p>
           </div>
         </div>
       </div>
