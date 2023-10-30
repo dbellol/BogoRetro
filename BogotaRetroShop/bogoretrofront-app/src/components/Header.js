@@ -107,6 +107,9 @@ const Header = () => {
                   <NavLink to='/Contact'>
                     Contacto
                   </NavLink>
+                  <NavLink to='/Contact'>
+                    Tarjetas de regalo
+                  </NavLink>
                 </div>
             </div>
           </div>
