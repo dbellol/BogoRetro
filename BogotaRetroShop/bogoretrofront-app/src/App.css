@@ -46,3 +46,50 @@ a{
   box-shadow: none;
   border-color: #b0bdb2;
 }
+.gap-10{
+  gap:10px;
+}
+.gap-15{
+  gap:15px;
+}
+.gap-30{
+  gap:30px;
+}
+.compare,
+.ubicacion{
+  width: 35px;
+  height: 35px;
+}
+/* Estilos existentes */
+/* ... */
+
+/* Nuevos estilos */
+.header-upper-links {
+  display: flex;
+  justify-content: space-between;
+}
+/* Bottom*/
+.header-bottom{
+  background-color: var(--color-3C7355);
+}
+.header-bottom .menu-bottom a,
+.header-bottom .dropdown button{
+  color:white;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.3;
+  text-transform: uppercase;
+}
+
+.header-bottom .dropdown button:focus{
+  box-shadow: none;
+}
+.header-bottom .dropdown-menu{
+  background-color: #3C7355;
+  width: 100%;
+  transform: translate3d(0px,57px,0px) !important;
+}
+.header-bottom .dropdown-item:hover{
+  background-color: #b0bdb2;
+}
