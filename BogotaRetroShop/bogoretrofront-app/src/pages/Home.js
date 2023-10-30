@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Marquee from 'react-fast-marquee'
 const Home = () => {
   return (
     <>
@@ -116,6 +116,153 @@ const Home = () => {
           </div>
         </div>
 
+      </section>
+      <section className='home-wrapper-3 py-5'>
+        <div className='container-xxl'>
+          <div className='row'>
+            <div className='col-12'>
+              <div className='categories d-flex justify-content-between flex-wrap align-items-center'>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Cámaras
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/camera.jpg'} className='img-fluid rounded-3' alt="camara"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Consola
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/gameboy.jpg'} className='img-fluid rounded-3' alt="gameboy"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Instrumentos
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/musica.jpg'} className='img-fluid rounded-3' alt="musica"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Camisetas retro
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/camiseta.jpg'} className='img-fluid rounded-3' alt="camiseta"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Portátiles
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/laptop.jpg'} className='img-fluid rounded-3' alt="laptop"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Electrodomésticos
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/homeapp.jpg'} className='img-fluid rounded-3' alt="homeapp"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Audífonos
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/headphone.jpg'} className='img-fluid rounded-3' alt="headphones"/>
+                </div>
+                <div className='d-flex gap-30 align-items-center'>
+                  <div>
+                    <h6>
+                      Audio
+                    </h6>
+                    <p>
+                      10 ítems
+                    </p>
+                  </div>
+                  <img src={process.env.PUBLIC_URL + '/images/speaker.jpg'} className='img-fluid rounded-3' alt="camiseta"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className='marquee-wrapper py-5'>
+        <div className='container-xxl'>
+          <div className='row'>
+            <div className='col-12'>
+              <div className='marquee-inner-wrapper card-wrapper'>
+                <Marquee className='d-flex'>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-01.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-09.png'} className='img-fluid rounded-3' alt="brand"/>
+                 </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-02.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-10.png'} className='img-fluid rounded-3' alt="brand"/>
+                 </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-03.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-11.png'} className='img-fluid rounded-3' alt="brand"/>
+                 </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-04.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-05.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-12.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-06.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-07.png'} className='img-fluid rounded-3' alt="brand"/>
+                  </div>
+                  <div className='mx-4 w-25'>
+                    <img src={process.env.PUBLIC_URL + '/images/brand-08.png'} className='img-fluid rounded-3' alt="brand"/>
+                 </div>
+                 
+                </Marquee>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   )
