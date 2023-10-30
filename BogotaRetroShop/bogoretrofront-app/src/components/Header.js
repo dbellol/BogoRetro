@@ -27,8 +27,9 @@ const Header = () => {
                   </Link>
               </div>
               <div>
-                  <Link className='ubicacion' to="/">
+                  <Link className='ubicacion gap-10 text-white' to="https://maps.app.goo.gl/FcYuZak2ag3siy299">
                       <img className="ubicacion" src={process.env.PUBLIC_URL + '/images/Ubicacion.png'} alt="Ubicacion" />
+                      <p>Ubicación física</p>
                   </Link>
               </div>
         </div>
@@ -95,19 +96,19 @@ const Header = () => {
               </div>
               <div className='menu-links'></div>
                 <div className='d-flex align-items-center gap-15'>
-                  <NavLink  to='/Home'>
+                  <NavLink  to='/'>
                     Inicio
                   </NavLink>
-                  <NavLink  to='/About'>
+                  <NavLink  to='/store'>
                     Nuestra tienda
                   </NavLink>
-                  <NavLink to='/Blogs'>
+                  <NavLink to='/blogs'>
                     Blogs
                   </NavLink>
                   <NavLink to='/Contact'>
                     Contacto
                   </NavLink>
-                  <NavLink to='/Contact'>
+                  <NavLink to='/tarjeta'>
                     Tarjetas de regalo
                   </NavLink>
                 </div>
