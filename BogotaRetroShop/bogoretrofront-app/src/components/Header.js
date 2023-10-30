@@ -17,20 +17,20 @@ const Header = () => {
       </div>
     </header>
     <header className='header-upper py-3'>
-    <div className='row align-items-center'>
-        <div className='col-2' style={{ backgroundColor: '#000000' }}></div>
+    <div className='row'>
+        <div className='col-2' style={{ backgroundColor: '#000000' }} ></div>
         
-        <div className='col-auto d-flex align-items-center'>
-            <div className="d-flex align-items-center">
-                <Link className='logo-upper' to="/">
-                    <img className="logo" src={process.env.PUBLIC_URL + '/images/bogoretro.png'} alt="BogoRetroLogo" />
-                </Link>
-            </div>
-            <div>
-                <Link className='ubicacion' to="/">
-                    <img className="ubicacion" src={process.env.PUBLIC_URL + '/images/Ubicacion.png'} alt="Ubicacion" />
-                </Link>
-            </div>
+          <div className='col-auto d-flex align-items-center '>
+              <div className="d-flex align-items-center">
+                  <Link className='logo-upper' to="/">
+                      <img className="logo" src={process.env.PUBLIC_URL + '/images/bogoretro.png'} alt="BogoRetroLogo" />
+                  </Link>
+              </div>
+              <div>
+                  <Link className='ubicacion' to="/">
+                      <img className="ubicacion" src={process.env.PUBLIC_URL + '/images/Ubicacion.png'} alt="Ubicacion" />
+                  </Link>
+              </div>
         </div>
         
         <div className='col-5'>
