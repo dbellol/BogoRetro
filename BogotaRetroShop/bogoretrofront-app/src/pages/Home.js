@@ -285,11 +285,21 @@ const Home = () => {
             <div className='col-12'>
               <h3 className='section-heading'>Nuestros últimos blogs</h3>
             </div>
-            <BlogCard></BlogCard>
-            <BlogCard></BlogCard>
-            <BlogCard></BlogCard>
+          </div>
+        <div className='row'>
+          <div className='col-3'>
             <BlogCard></BlogCard>
           </div>
+          <div className='col-3'>
+            <BlogCard></BlogCard>
+          </div>
+          <div className='col-3'>
+            <BlogCard></BlogCard>
+          </div>
+          <div className='col-3'>
+            <BlogCard></BlogCard>
+          </div>
+        </div>
         </div>
       </section>
     </>

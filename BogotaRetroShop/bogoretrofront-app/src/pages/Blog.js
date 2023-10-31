@@ -1,6 +1,7 @@
 import React from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
+import BlogCard from '../components/BlogCard';
 
 const Blog = () => {
   return (
@@ -34,7 +35,20 @@ const Blog = () => {
                     </div>
                 </div>
                 <div className='col-9'>
-                    
+                    <div className='row'>
+                        <div className='col-6 mb-3'>
+                            <BlogCard/>
+                        </div>
+                        <div className='col-6 mb-3'>
+                            <BlogCard/>
+                        </div>
+                        <div className='col-6 mb-3'>
+                            <BlogCard/>
+                        </div>
+                        <div className='col-6 mb-3'>
+                            <BlogCard/>
+                        </div>
+                    </div>
                 </div> 
             </div>
 
