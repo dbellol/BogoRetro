@@ -5,8 +5,8 @@ import Color from '../components/Color';
 const CompareProduct = () => {
   return (
     <>
-    <Meta title={"Compare products"}></Meta>
-        <BreadCrumb title="Compare products">
+    <Meta title={"Comparar productos"}></Meta>
+        <BreadCrumb title="Comparar productos">
         </BreadCrumb>
         <div className='compare-product-wrapper py-5 home-wrapper-2'>
             <div className='container-xxl'>

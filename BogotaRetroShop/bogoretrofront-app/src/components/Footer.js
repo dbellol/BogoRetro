@@ -34,10 +34,10 @@ const Footer = () => {
                 <a href='tel: +573013382482' className='mt-3 d-block mb-1 text-white'>+573013382482</a>
                 <a href='mailto: ing2bogoretro@gmail.com' className='mt-4 d-block mb-0 text-white'>ing2bogoretro@gmail.com</a>
                 <div className='social_icons d-flex align-items-center gap-30 mt-4'>
-                  <a className='text-white' href="#">
+                  <a className='text-white' href="https://www.facebook.com/profile.php?id=61551709726959">
                     <BsFacebook className='fs-4'></BsFacebook>
                   </a>
-                  <a className='text-white' href="#">
+                  <a className='text-white' href="https://github.com/dbellol/BogoRetro">
                     <BsGithub className='fs-4'></BsGithub>
                   </a>
                   <a className='text-white' href="#">

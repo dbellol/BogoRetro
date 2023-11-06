@@ -105,10 +105,10 @@ const Header = () => {
                   <NavLink to='/blogs'>
                     Blogs
                   </NavLink>
-                  <NavLink to='/Contact'>
+                  <NavLink to='/contact'>
                     Contacto
                   </NavLink>
-                  <NavLink to='/tarjeta'>
+                  <NavLink to='/tarjet'>
                     Tarjetas de regalo
                   </NavLink>
                 </div>

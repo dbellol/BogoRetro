@@ -1,14 +1,14 @@
 import React from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
-function Cart() {
+function Tarjetas() {
   return (
     <>
-        <Meta title={"Carrito de compras"}></Meta>
-        <BreadCrumb title="Carrito de compras">
+        <Meta title={"Tarjetas de regalo"}></Meta>
+        <BreadCrumb title="Tarjetas de regalo">
         </BreadCrumb>
     </>
   )
 }
 
-export default Cart
+export default Tarjetas

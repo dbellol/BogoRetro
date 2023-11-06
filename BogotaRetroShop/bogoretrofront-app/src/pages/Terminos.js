@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import BreadCrumb from '../components/BreadCrumb';
+import Meta from '../components/Meta';
 const Terminos = () => {
     return (
         <>
+            <Meta title={"Términos y condiciones"}></Meta>
+            <BreadCrumb title="Términos y condiciones">
+            </BreadCrumb>
             <div class="container">
                 <div class="card">
                     <div class="card-body">
