@@ -25,7 +25,7 @@ const Login = () => {
                     ¿Olvidaste tu contraseña?
                     </Link>
                     <div className='mt-3 d-flex justify-content-center gap-15 align-items-center'>
-                      <button className='button signup border-0'>Ingresar</button>
+                      <button className='button signup border-0' type='submit'>Ingresar</button>
                       <Link to='/signup' className='button signup'>Registrarse</Link>
                     </div>
                   </div>

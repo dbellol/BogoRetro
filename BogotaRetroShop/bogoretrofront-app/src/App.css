@@ -253,6 +253,20 @@ footer .input-group-text{
   line-height: 22px;
   color: var(--color-777777);
 }
+.single-blog-card a{
+  font-size: 18px;
+  color: var(--color-777777);
+  margin-bottom: 20px;
+}
+.single-blog-card h3{
+  font-size: 24px;
+  font-weight: 600;
+  color:var(--color-000000)
+}
+.single-blog-card p{
+  font-size: 14px;
+  color:var(--color-777777)
+}
 .section-heading{
   font-size: 26px;
   line-height: 32px;
@@ -503,5 +517,45 @@ footer .input-group-text{
   background-color: #000000;
   color: white;
 }
-
-/*Reestablecer contraseña*/
+/*Pagina producto*/
+.description-wrapper h4,
+.reviews-wrapper h3{
+  font-size: 26px;
+  color: var(--color-000000);
+  margin-bottom: 10px;
+}
+.description-wrapper p{
+  font-size: 14px;
+  color: var(--color-777777);
+}
+.review-inner-wrapper{
+  background-color: white;
+  padding: 30px;
+}
+.review-head{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom:20px;
+}
+.review-head h4{
+  font-size: 18px;
+  color:var(--color-000000);
+}
+.review-head p,
+.review-head a{
+  font-size: 14px;
+  color: var(--color-777777);
+}
+.review-form h4{
+  font-size: 16px;
+  color: var(--color-777777);
+}
+.review-form{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.review:not(:last-child){
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.review p{
+  font-size: 14px;
+  color: var(--color-777777);
+}

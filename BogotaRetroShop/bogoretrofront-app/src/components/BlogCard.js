@@ -13,7 +13,7 @@ const BlogCard = () => {
             <p className='desc'>
                 Descripcion
             </p>
-            <Link to="/" className='button'>LEER MÁS</Link>        
+            <Link to="/blog/:id" className='button'>LEER MÁS</Link>        
         </div>
     </div>
   )
