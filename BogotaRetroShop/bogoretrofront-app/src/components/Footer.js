@@ -57,8 +57,8 @@ const Footer = () => {
                 <Link className='text-white py-2 mb-1'>Politica de privacidad</Link>
                 <Link className='text-white py-2 mb-1'>Política de reembolso</Link>
                 <Link className='text-white py-2 mb-1'>Política de envío</Link>
-                <Link className='text-white py-2 mb-1'>Términos y condiciones</Link>
-                <Link className='text-white py-2 mb-1'>Blogs</Link>
+                <Link to='/terminos' className='text-white py-2 mb-1'>Términos y condiciones</Link>
+                <Link to='/blogs' className='text-white py-2 mb-1'>Blogs</Link>
               </div>
 
             </div>
@@ -67,7 +67,7 @@ const Footer = () => {
               <div className='footer-link d-flex flex-column'>
                 <Link className='text-white py-2 mb-1'>Acerca de nosotros</Link>
                 <Link className='text-white py-2 mb-1'>Preguntas frecuentes</Link>
-                <Link className='text-white py-2 mb-1'>Contacto</Link>
+                <Link to ='/contact' className='text-white py-2 mb-1'>Contacto</Link>
               </div>
 
             </div>

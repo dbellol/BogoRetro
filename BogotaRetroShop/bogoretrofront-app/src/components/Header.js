@@ -27,7 +27,7 @@ const Header = () => {
                   </Link>
               </div>
               <div>
-                  <Link className='ubicacion gap-10 text-white' to="https://maps.app.goo.gl/FcYuZak2ag3siy299">
+                  <Link to='/contact' className='ubicacion gap-10 text-white' to="https://maps.app.goo.gl/FcYuZak2ag3siy299">
                       <img className="ubicacion" src={process.env.PUBLIC_URL + '/images/Ubicacion.png'} alt="Ubicacion" />
                       <p>Ubicación física</p>
                   </Link>
@@ -44,25 +44,25 @@ const Header = () => {
         <div className='col-2'>
           <div className='header-upper-links d-flex align-items-center justify-content-between'>
             <div>
-              <Link className='d-flex align-items-center gap-10 text-white'>
+              <Link to='/compare' className='d-flex align-items-center gap-10 text-white'>
                 <img className='compare' src={process.env.PUBLIC_URL + '/images/compare.svg'} alt="comparesgv" />
                 <p className='mb-0'>Compara <br />productos</p>
               </Link>
             </div>
             <div>
-              <Link className='d-flex align-items-center gap-10 text-white'>
+              <Link to='/wishlist' className='d-flex align-items-center gap-10 text-white'>
                 <img className='favorito' src={process.env.PUBLIC_URL + '/images/wishlist.svg'} alt="wishlistsgv" />
                 <p className='mb-0'>Lista <br />de deseos</p>
               </Link>
             </div>
             <div>
-              <Link className='d-flex align-items-center gap-10 text-white'>
+              <Link to ='/login' className='d-flex align-items-center gap-10 text-white'>
                 <img className='login' src={process.env.PUBLIC_URL + '/images/user.svg'} alt="login" />
                 <p className='mb-0'>Ingresa <br />a tu cuenta</p>
               </Link>
             </div>
             <div>
-              <Link className='d-flex align-items-center gap-10 text-white'>
+              <Link to='/cart' className='d-flex align-items-center gap-10 text-white'>
                 <img className='car' src={process.env.PUBLIC_URL + '/images/cart.svg'} alt="cart" />
                 <div className='d-flex flex-column align-items-center gap-10'>
                   <span className='badge bg-white text-dark'>0</span>
