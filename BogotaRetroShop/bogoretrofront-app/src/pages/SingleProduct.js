@@ -3,8 +3,12 @@ import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
+import ReactImageZoom from 'react-image-zoom';
+import Color from '../components/Color';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 function SingleProduct() {
+    const props={width:400, height:500, zoomWidth:600, img:'https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg' };
     const[orderedProduct, setorderedProduct]=useState(true);
   return (
     <>
@@ -15,10 +19,98 @@ function SingleProduct() {
             <div className='container-xxl'>
                 <div className='row'>
                     <div className='col-6'>
+                        <div className='main-product-image'>
+                            <div>
+                                <ReactImageZoom {...props}/>
+                                
+                            </div>
+                        </div>
+                        <div className='other-product-images d-flex flex-wrap gap-15'>
+                            <div>
+                                <img src="https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg" className='img-fluid' alt="productimage"/>
 
+                            </div>
+                            <div>
+                                <img src="https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg" className='img-fluid' alt="productimage"/>
+
+                            </div>
+                            <div>
+                                <img src="https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg" className='img-fluid' alt="productimage"/>
+
+                            </div>
+                            <div>
+                                <img src="https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg" className='img-fluid' alt="productimage"/>
+
+                            </div>
+                            
+                        </div>
                     </div>
                     <div className='col-6'>
-                        
+                        <div className='main-product-details'>
+                            <div className='border-bottom'>
+                                <h3 className='title'>Gameboy color</h3>
+
+                            </div>
+                            <div className='border-bottom py-3'>
+                                <p className='price'>$300.000</p>
+                                <div className='d-flex align-items-center gap-10'>
+                                    <ReactStars
+                                        count={5}
+                                        size={24}
+                                        value="4"
+                                        edit={false}
+                                        activeColor="#ffd700"
+                                    />
+                                    <p className='mb-0 t-review'>(2 opiniones)</p>
+                                </div>
+                                <a className='review-btn' href='#review'>Escribe una opinión</a>
+                            </div>
+                            <div className='border-bottom py-3'>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Tipo:</h3>
+                                    <p className='product-data'>Consola</p>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Marca:</h3>
+                                    <p className='product-data'>Nintendo</p>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Categoría:</h3>
+                                    <p className='product-data'>Portable</p>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Tags:</h3>
+                                    <p className='product-data'>nintendo</p>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Disponibilidad:</h3>
+                                    <p className='product-data'>Disponible</p>
+                                </div>
+                                <div className='d-flex gap-10 flex-column mt-2 mb-3'>
+                                    <h3 className='product-heading'>Tamaño:</h3>
+                                    <div className='d-flex flex-wrap gap-15'>
+                                        <span className='badge border border-1 bg-white text-dark border-secondary'>S</span>
+                                        <span className='badge border border-1 bg-white text-dark border-secondary'>M</span>
+                                        <span className='badge border border-1 bg-white text-dark border-secondary'>XL</span>
+                                        <span className='badge border border-1 bg-white text-dark border-secondary'>XXL</span>
+                                    </div>
+                                </div>
+                                <div className='d-flex flex-column mt-2 mb-3'>
+                                    <h3 className='product-heading'>Color:</h3>
+                                    <Color></Color>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center gap-15 flex-row mt-2 mb-3'>
+                                    <h3 className='product-heading'>Cantidad:</h3>
+                                    <div className=''>
+                                        <input type='number' name='' min ={1} max={10} style={{width:"70px"}} className='form-control' id=''></input>
+                                    </div>
+                                    <div className='d-flex align-items-center gap-30 ms-5'>
+                                        <button className='button signup border-0' type='submit'>Añadir al carrito</button>
+                                        <button className='button signup' type='submit'>Comprar ahora</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,7 +132,7 @@ function SingleProduct() {
                 </div>
             </div>
         </div>
-        <section className='reviews-wrapper home-wrapper-2'>
+        <section id='review' className='reviews-wrapper home-wrapper-2'>
             <div className='container-xxl'>
                 <div className='row'>
                     <div className='col-12'>

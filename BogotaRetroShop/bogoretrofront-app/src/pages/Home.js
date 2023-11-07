@@ -13,7 +13,7 @@ const Home = () => {
               <div className='d-flex flex-wrap gap-10 justify-content-between align-items-center'>
 
                 <div className='main-banner position-realtive'>
-                  <img src={process.env.PUBLIC_URL + '/images/main-banner.jpg'} className='img-fluid rounded-3' alt="main banner"/>
+                  <img src={process.env.PUBLIC_URL + '/images/main-banner-1.jpg'} className='img-fluid rounded-3' alt="main banner"/>
                   <div className='main-banner-content position-absolute'>
                     <h4> SÚPER AUDÍFONOS A LA MANO</h4>
                     <h5>Sony WH 1000xm4</h5>
