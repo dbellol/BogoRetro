@@ -21,6 +21,7 @@ import RefundPolicy from './pages/RefundPolicy';
 import ShippingPolicy from './pages/ShippingPolicy';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import SingleProduct from './pages/SingleProduct';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -46,6 +47,8 @@ function App() {
         <Route path="refund-policy" element={<RefundPolicy />} />
         <Route path="shipping-policy" element={<ShippingPolicy />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="checkout" element={<Checkout />} />
+
         </Route>
       </Routes>
     </BrowserRouter>

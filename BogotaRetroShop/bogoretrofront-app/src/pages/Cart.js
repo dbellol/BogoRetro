@@ -22,7 +22,7 @@ function Cart() {
                 <div className='cart-data py-3 mb-2 d-flex justify-content-between align-items-center'>
                   <div className='cart-col-1 gap-15 d-flex align-items-center'> 
                     <div className='w-25'>
-                      <img className='img-fluid' src={process.env.PUBLIC_URL + '/images/watch.jpg'} className='img-fluid rounded-3' alt="productimage"/>
+                      <img className='img-fluid' src={process.env.PUBLIC_URL + '/images/watch.jpg'} alt="watch"/>
                     </div>
                     <div className='w-75'>
                       <p>
@@ -33,7 +33,7 @@ function Cart() {
                     </div>
                   </div>
                   <div className='cart-col-2'>
-                    <h5 className='price'>$100.000</h5>
+                    <h5 className='price'>$30.000</h5>
                   </div>
                     
                   <div className='cart-col-3 d-flex align-items-center gap-15'>
@@ -48,7 +48,7 @@ function Cart() {
 
                   </div>
                   <div className='cart-col-4'> 
-                    <h5 className='price'>$100.000</h5>
+                    <h5 className='price'>$30.000</h5>
 
                   </div>
                 </div>
@@ -58,7 +58,7 @@ function Cart() {
                       Continuar con la compra
                     </Link>
                     <div className='d-flex flex-column align-items-end'>
-                      <h4>Subtotal: $100.000</h4>
+                      <h4>Subtotal: $30.000</h4>
                       <p>Los impuestos y envíos son calculados al finalizar la compra</p>
                       <Link to='/checkout' className='button signup'>
                         Finalizar
