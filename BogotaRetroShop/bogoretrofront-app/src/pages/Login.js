@@ -1,6 +1,7 @@
 import React from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
+import Container from '../components/Container';
 import { Link } from 'react-router-dom';
 const Login = () => {
   return (
@@ -8,7 +9,7 @@ const Login = () => {
       <Meta title={"Iniciar sesión"}></Meta>
       <BreadCrumb title="Iniciar sesión">
       </BreadCrumb>
-      <div className='login-wrapper home-wrapper-2'>
+      <Container class1='login-wrapper home-wrapper-2'>
         <div className='row'>
           <div className='col-12'>
             <div className='auth-card'>
@@ -34,7 +35,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   )
 }
