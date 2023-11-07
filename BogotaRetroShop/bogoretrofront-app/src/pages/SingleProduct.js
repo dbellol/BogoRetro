@@ -5,11 +5,22 @@ import ProductCard from '../components/ProductCard';
 import ReactStars from 'react-rating-stars-component';
 import ReactImageZoom from 'react-image-zoom';
 import Color from '../components/Color';
+import {TbGitCompare} from 'react-icons/tb';
+import {AiOutlineHeart} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 function SingleProduct() {
-    const props={width:400, height:500, zoomWidth:600, img:'https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg' };
+    const props={width:400, height:600, zoomWidth:600, img:'https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg' };
     const[orderedProduct, setorderedProduct]=useState(true);
+    const copyToClipboard = (text) => {
+        console.log('text', text)
+        var textField = document.createElement('textarea')
+        textField.innerText = text
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+    }
   return (
     <>
         <Meta title={"Product name"}></Meta>
@@ -108,6 +119,22 @@ function SingleProduct() {
                                         <button className='button signup border-0' type='submit'>Añadir al carrito</button>
                                         <button className='button signup' type='submit'>Comprar ahora</button>
                                     </div>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center gap-15'>
+                                    <div>
+                                        <a href=''><TbGitCompare className='fs-5 me-2'></TbGitCompare>Comparar</a>
+                                    </div>
+                                    <div>
+                                        <a href=''><AiOutlineHeart className='fs-5 me-2'></AiOutlineHeart>Añadir a la lista de deseos</a>
+                                    </div>
+                                </div>
+                                <div className='d-flex gap-10 flex-column my-3'>
+                                    <h3 className='product-heading'>Envíos y retornos:</h3>
+                                    <p className='product-data'>Envíos gratis por compras superiores a <b>$100.000</b><br/>Recuerda que legalmente puedes reversar la compra en los siguientes <b>5 días hábiles.</b></p>
+                                </div>
+                                <div className='d-flex gap-10 align-items-center my-2'>
+                                    <h3 className='product-heading'>Copiar el link del producto:</h3>
+                                    <a href='javascript:void(0);' onClick={()=>{copyToClipboard('https://areajugones.sport.es/wp-content/uploads/2021/07/game-boy-wallpaper-full-hd-360166.jpeg')}}>Copia el link del producto.</a>
                                 </div>
                             </div>
                         </div>

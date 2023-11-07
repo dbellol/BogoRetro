@@ -578,7 +578,7 @@ footer .input-group-text{
   padding: 20px;
 }
 .other-product-images >div{
-  padding: 20px;
+  padding: 30px;
   width: 48%;
   border: 1px solid rgba(0, 0, 0, 0.25); 
 }
@@ -590,7 +590,7 @@ footer .input-group-text{
   z-index: 1000;
 }
 .main-product-details{
-  padding:20px;
+  padding:30px 20px;
   border-radius: 10px;
   background-color: white;
 }
@@ -628,4 +628,16 @@ footer .input-group-text{
 }
 .badge{
   cursor: pointer;
+}
+.main-product-details a{
+  font-size: 14px;
+  color: var(--color-777777);
+}
+/*Carrito de compras*/
+.cart-header{
+  border-bottom: #eaeaea;
+}
+.cart-header h4{
+  font-size: 13px;
+  color: var(--color-777777);
 }
