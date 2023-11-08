@@ -27,7 +27,7 @@ const Header = () => {
                   </Link>
               </div>
               <div>
-                  <Link to='/contact' className='ubicacion gap-10 text-white' to="https://maps.app.goo.gl/FcYuZak2ag3siy299">
+                  <Link className='ubicacion gap-10 text-white' to="https://maps.app.goo.gl/FcYuZak2ag3siy299">
                       <img className="ubicacion" src={process.env.PUBLIC_URL + '/images/Ubicacion.png'} alt="Ubicacion" />
                       <p>Ubicación física</p>
                   </Link>
@@ -99,7 +99,7 @@ const Header = () => {
                   <NavLink  to='/'>
                     Inicio
                   </NavLink>
-                  <NavLink  to='/store'>
+                  <NavLink  to='/product'>
                     Nuestra tienda
                   </NavLink>
                   <NavLink to='/blogs'>

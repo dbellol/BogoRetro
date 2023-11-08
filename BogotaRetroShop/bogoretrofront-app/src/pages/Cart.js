@@ -54,7 +54,7 @@ function Cart() {
               </div>
               <div className='col-12 py-2 mt-4'>
                 <div className='d-flex justify-content-between align-items-baseline'>
-                  <Link to='/store' className='button signup'>
+                  <Link to='/product' className='button signup'>
                     Continuar con la compra
                   </Link>
                   <div className='d-flex flex-column align-items-end'>
