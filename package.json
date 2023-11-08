@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "netlify": "^13.1.10",
     "uniqid": "^5.4.0"
   }
 }
