@@ -9,13 +9,13 @@ body{
   transition: color 0.3s;
 }
 .trigger:hover{
-  color:#1890ff;
+  color:#8C8525;
 }
 .logo{
   height: 64px;
   margin: 0px;
-  background: #3C7555;
 }
+
 .ant-layout{
   min-height: 100vh;
 }
