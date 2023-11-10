@@ -14,6 +14,8 @@ import Productlist from './pages/ProductList';
 import Brandlist from './pages/BrandList';
 import Categorylist from './pages/Categorylist';
 import Colorlist from './pages/Colorlist';
+import Addblog from './pages/Addblog';
+import Addblocat from './pages/Addblocat';
 function App() {
   return (
     <Router>
@@ -24,7 +26,9 @@ function App() {
         <Route path="/admin" element={<MainLayout/>}>
           <Route index element={<Dashboard/>}/>
           <Route path="enquiries" element={<Enquiries/>}/>
+          <Route path="blog" element={<Addblog/>}/>
           <Route path="blog-list" element={<Bloglist/>}/>
+          <Route path="category" element={<Addblocat/>}/>
           <Route path="blog-category-list" element={<Blogcategorylist/>}/>
           <Route path="orders" element={<Orders/>}/>
           <Route path="customers" element={<Customers/>}/>
