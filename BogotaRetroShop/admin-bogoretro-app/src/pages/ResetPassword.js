@@ -9,7 +9,7 @@ const ResetPassword =()=> {
         <br />
         <br />
         <div className='my-5 w-25 bg-white rounded-3 mx-auto p-4'>
-            <h3 className='text-center'>Reestablecer contraseña</h3>
+            <h3 className='text-center  title'>Reestablecer contraseña</h3>
             <p className='text-center'>Ingresa por favor la nueva contraseña</p>
             <form action=''>
                 <CustomInput type='password' label='Nueva contraseña' id='pass' />

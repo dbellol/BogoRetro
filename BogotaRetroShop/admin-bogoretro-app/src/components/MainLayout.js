@@ -6,7 +6,7 @@ import {BiCategoryAlt} from 'react-icons/bi';
 import {FaClipboardList, FaBloggerB} from 'react-icons/fa';
 import {ImBlog} from 'react-icons/im';
 import {IoIosNotifications} from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
@@ -143,18 +143,21 @@ const MainLayout = () => {
             <span className='badge bg-warning rounded-circle p-1 position-absolute '>3</span>
 
             </div>
-            <div className='d-flex gap-3 align-items-center'>
-              <div className=''>
+            <div className='d-flex gap-3 align-items-center dropdown'>
+              <div >
                 <img className='diana' src='https://media.licdn.com/dms/image/D4E03AQFC-FG89U8D7A/profile-displayphoto-shrink_200_200/0/1688433777020?e=1701907200&v=beta&t=mVjknZ_wf42xwhkpYCiJtQYAZSdcvGYX9LTWDsopQ7U' alt=''style={{'width': '32px', 'height': '32px'}}/>
-                
               </div>
-              <div className=''>
+              <div role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>
                 <h5 className='mb-0'>
                   Diana Bello
                 </h5>
                 <p className='mb-0'>
                   dbellol@unal.edu.co
                 </p>
+              </div>
+              <div className='dropdown-menu' aria-labelledby='dropdownMenuLink'>
+                <li><Link className='dropdown-item py-2 mb-0' style={{"height":"auto","lineHeight":"20px"}} to='#'>Ver perfil</Link></li>
+                <li><Link className='dropdown-item py-2 mb-0' style={{"height":"auto","lineHeight":"20px"}} to='#'>Cerrar sesión</Link></li>
               </div>
             </div>
           </div>

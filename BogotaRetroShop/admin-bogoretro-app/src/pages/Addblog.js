@@ -31,7 +31,7 @@ const Addblog = () => {
     }
   return (
     <div>
-        <h3 className='mb-4'>
+        <h3 className='mb-4 title'>
         Crear blog</h3>
        
         <div className=''>

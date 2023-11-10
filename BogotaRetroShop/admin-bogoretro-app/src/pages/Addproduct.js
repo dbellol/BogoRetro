@@ -31,7 +31,7 @@ const Addproduct = () => {
     }
   return (
     <div>
-        <h3 className='mb-4'>
+        <h3 className='mb-4  title'>
             Añadir producto
         </h3>
         <div>

@@ -1,9 +1,44 @@
+.root{
+    --color-000000: #000000;
+    --color-3C7355: #3C7355;
+    --color-8C8525: #8C8525;
+    --color-B0BDB2: #B0BDB2;
+    --color-5B331C: #5B331C;
+    --color-47ad24: #47ad24;
+    --color-E52E2E: #E52E2E;
+    --color-828599: #828599;
+    --color-ed464d: #ed464d;
+    --color-ced4da: #ced4da;
+}
 .green{
     color: green;
+    font-size: 14px;
+    font-family: Roboto !important;
 }
 .red{
     color:red;
+    font-size: 14px;
+    font-family: Roboto !important;
 }
 .quill{
     background-color: white;
+}
+.form-control{
+    box-shadow: none;
+    border-color: var(--color-ced4da);
+}
+.title{
+    font-size: 28px;
+    font-family: Roboto !important;
+    color: #212529;
+}
+.sub-title{
+    font: 24px;
+    font-family: Roboto !important;
+    color: #212529;
+}
+.desc{
+    font: 14px;
+    font-family: Roboto !important;
+    color: var(--color-8285990);
 }

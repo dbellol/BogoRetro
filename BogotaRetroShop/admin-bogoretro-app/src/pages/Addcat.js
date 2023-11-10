@@ -4,7 +4,7 @@ import CustomInput from '../components/CustomInput'
 function Addcat() {
   return (
     <div>
-        <h3 className='mb-4'>Añadir categoría</h3>
+        <h3 className='mb-4  title'>Añadir categoría</h3>
         <div>
             <form action=''>
                 <CustomInput type='text' label='Escriba la categoría del producto' />

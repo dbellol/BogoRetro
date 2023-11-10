@@ -9,7 +9,7 @@ const Login =()=> {
         <br />
         <br />
         <div className='my-5 w-25 bg-white rounded-3 mx-auto p-4'>
-            <h3 className='text-center'>Iniciar sesión</h3>
+            <h3 className='text-center  title'>Iniciar sesión</h3>
             <p className='text-center'>Ingresa a tu cuenta para continuar</p>
             <form action=''>
                 <CustomInput type='text' label='Correo electrónico' id='email' />

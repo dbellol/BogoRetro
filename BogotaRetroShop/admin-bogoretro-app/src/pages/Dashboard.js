@@ -89,10 +89,7 @@ const Dashboard =()=> {
       return "#3C7355";
     },
     label: {
-      // 可手动配置 label 数据标签位置
       position: 'middle',
-      // 'top', 'bottom', 'middle',
-      // 配置样式
       style: {
         fill: '#FFFFFF',
         opacity: 1,
@@ -115,42 +112,42 @@ const Dashboard =()=> {
   };
   return (
     <div>
-      <h3 className='mb-4'>Tablero</h3>
+      <h3 className='mb-5  title'>Tablero</h3>
       <div className='d-flex justify-content-between align-items-center gap-3'>
         <div className='d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3'>
-          <div><p >Total</p><h4 className='mb-0'>$1100</h4>
+          <div><p className='desc' >Total</p><h4 className='mb-0 sub-title'>$1100</h4>
           </div>
           <div className='d-flex flex-column align-items-end'>
             <h6 className='green'><BsArrowUpRight/>32%</h6>
-            <p className='mb-0'>Comparado con Abril 2022</p>
+            <p className='mb-0 desc'>Comparado con Abril 2022</p>
           </div>
         </div>
         <div className='d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3 '>
-          <div><p >Total</p><h4 className='mb-0'>$1100</h4>
+          <div><p className='desc'>Total</p><h4 className='mb-0 sub-title'>$1100</h4>
           </div>
           <div className='d-flex flex-column align-items-end'>
             <h6 className='red'><BsArrowDownRight/>32%</h6>
-            <p className='mb-0'>Comparado con Abril 2022</p>
+            <p className='mb-0 desc'>Comparado con Abril 2022</p>
           </div>
         </div>
         <div className='d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 rounded-3 '>
-          <div><p >Total</p><h4 className='mb-0'>$1100</h4>
+          <div><p className='desc'>Total</p><h4 className='mb-0 sub-title'>$1100</h4>
           </div>
           <div className='d-flex flex-column align-items-end'>
             <h6 className='green'><BsArrowUpRight/>32%</h6>
-            <p className='mb-0'>Comparado con Abril 2022</p>
+            <p className='mb-0 desc'>Comparado con Abril 2022</p>
           </div>
         </div>
       </div>
       <div className='mt-4'>
-        <h3 className='mb-4'>
+        <h3 className='mb-5  title'>
           Estadísticas de ingresos</h3>
           <div>
             <Column {...config} />
           </div>
       </div>
       <div className='mt-4'>
-        <h3 className='mb-4'>
+        <h3 className='mb-5  title'>
           Ordenes recientes
         </h3>
         <div>

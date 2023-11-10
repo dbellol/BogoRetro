@@ -4,7 +4,7 @@ import CustomInput from '../components/CustomInput'
 function Addblocat() {
   return (
     <div>
-        <h3 className='mb-4'>Añadir categoría de blog</h3>
+        <h3 className='mb-4 title'>Añadir categoría de blog</h3>
         <div>
             <form action=''>
                 <CustomInput type='text' label='Escriba la categoría del blog' />

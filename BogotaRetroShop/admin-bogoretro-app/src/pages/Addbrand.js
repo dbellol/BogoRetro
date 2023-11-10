@@ -4,7 +4,7 @@ import CustomInput from '../components/CustomInput'
 function Addbrand() {
   return (
     <div>
-        <h3 className='mb-4'>Añadir marca</h3>
+        <h3 className='mb-4 title'>Añadir marca</h3>
         <div>
             <form action=''>
                 <CustomInput type='text' label='Escriba la marca del producto' />

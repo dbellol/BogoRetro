@@ -4,7 +4,7 @@ import CustomInput from '../components/CustomInput'
 function Addcolor() {
   return (
     <div>
-        <h3 className='mb-4'>Añadir un color</h3>
+        <h3 className='mb-4  title'>Añadir un color</h3>
         <div>
             <form action=''>
                 <CustomInput type='color' label='Seleccione el color' />
