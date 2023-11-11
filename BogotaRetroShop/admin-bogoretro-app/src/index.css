@@ -69,3 +69,8 @@ main::-webkit-scrollbar{
   right: -6px;
   background: #3C7555 !important;
 }
+.error{
+  color:#E52E2E;
+  font-size: 12px;
+  
+}

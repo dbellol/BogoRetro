@@ -17,9 +17,10 @@ const enqRouter = require('./routes/enqRoute');
 const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const morgan=require('morgan');
 dbConnect();
-
+const cors = require('cors');
 
 app.use(morgan("dev"));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
