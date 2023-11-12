@@ -11,7 +11,13 @@ const columns = [
     title: 'Nombre',
     dataIndex: 'name',
     defaultSortOrder:"descend",
-    sorter:(a,b)=>a.name.length - b.name.length,
+    sorter: (a, b) => {
+      if (!a.name|| !b.name ) {
+        // Manejar casos donde 'name' puede ser undefined o null
+        return 0;
+      }
+      return a.name.localeCompare(b.name);
+    },
   },
   {
     title: 'Email',
@@ -20,6 +26,7 @@ const columns = [
   {
     title: 'Celular',
     dataIndex: 'mobile',
+    sorter: (a, b) => b.mobile - a.mobile,
   },
 ];
 const Customers = () => {
