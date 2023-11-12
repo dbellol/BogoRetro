@@ -6,6 +6,8 @@ import brandReducer from '../features/brand/brandSlice';
 import pCategoryReducer from '../features/pcategory/pcategorySlice'
 import blogReducer from '../features/blogs/blogSlice'
 import bCategoryReducer from '../features/bcategory/bcategorySlice'
+import colorReducer from '../features/color/colorSlice'
+
 export const store = configureStore({
-    reducer:{auth: authReducer, customer: customerReducer, product: productReducer, brand:brandReducer, pCategory: pCategoryReducer, blogs: blogReducer, bCategory: bCategoryReducer},
+    reducer:{auth: authReducer, customer: customerReducer, product: productReducer, brand:brandReducer, pCategory: pCategoryReducer, blogs: blogReducer, bCategory: bCategoryReducer, color:colorReducer},
 });
