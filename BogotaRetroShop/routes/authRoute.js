@@ -1,5 +1,5 @@
 const express=require('express');
-const {createUser, loginUserCtrl, getaUser, getsUser, deletesUser, updatedaUser, blockUser, unblockUser, handleRefreshToken, logout, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishList, saveAdress, userCar, getUserCar, emptyCar, applyCoupon, createOrder, getOrders, updateOrders}=require("../controller/userCtrl");
+const {createUser, loginUserCtrl, getaUser, getsUser, deletesUser, updatedaUser, blockUser, unblockUser, handleRefreshToken, logout, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishList, saveAdress, userCar, getUserCar, emptyCar, applyCoupon, createOrder, getOrders, updateOrders, getAllOrders}=require("../controller/userCtrl");
 const router=express.Router();
 const {authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 router.post("/register", createUser);
@@ -19,6 +19,8 @@ router.post("/car/cash-order", authMiddleware, createOrder);
 
 router.get("/all-users", getaUser);
 router.get("/get-orders", authMiddleware, getOrders);
+router.get("/getallorders", authMiddleware, isAdmin, getAllOrders);
+
 
 router.get("/refresh",handleRefreshToken);
 router.get("/logout",logout);

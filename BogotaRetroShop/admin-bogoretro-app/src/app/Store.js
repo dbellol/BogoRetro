@@ -7,7 +7,8 @@ import pCategoryReducer from '../features/pcategory/pcategorySlice'
 import blogReducer from '../features/blogs/blogSlice'
 import bCategoryReducer from '../features/bcategory/bcategorySlice'
 import colorReducer from '../features/color/colorSlice'
+import enquiryReducer from '../features/enquiry/enquirySlice'
 
 export const store = configureStore({
-    reducer:{auth: authReducer, customer: customerReducer, product: productReducer, brand:brandReducer, pCategory: pCategoryReducer, blogs: blogReducer, bCategory: bCategoryReducer, color:colorReducer},
+    reducer:{auth: authReducer, customer: customerReducer, product: productReducer, brand:brandReducer, pCategory: pCategoryReducer, blogs: blogReducer, bCategory: bCategoryReducer, color:colorReducer, enquiry: enquiryReducer},
 });

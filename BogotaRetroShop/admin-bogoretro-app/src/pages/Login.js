@@ -5,6 +5,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import { login } from '../features/auth/authSlice';
+
 let schema = Yup.object().shape({
     email: Yup.string().email('El email debería ser válido').required('El email es requerido'),
     password: Yup.string().required('La contraseña es requerido'),
@@ -46,7 +47,15 @@ const Login =()=> {
                 {message.message ==='Rejected' ? "No eres un administrador":""}
             </div>
             <form action='' onSubmit={formik.handleSubmit}>
-                <CustomInput type='text' name='email' label='Correo electrónico' id='email' val={formik.values.email} onCh={formik.handleChange('email')} />
+                <CustomInput 
+                    type='text' 
+                    name='email' 
+                    label='Correo electrónico' 
+                    id='email' 
+                    val={formik.values.email} 
+                    onChng={formik.handleChange} 
+                    onBl={formik.handleBlur}
+                />
                 <div className='error mt-2'>
                     {formik.touched.email && formik.errors.email ? (
                         <div>
@@ -54,7 +63,15 @@ const Login =()=> {
                         </div>
                     ):null}
                 </div>
-                <CustomInput type='password' name='password' label='Contraseña' id='pass' val={formik.values.password} onCh={formik.handleChange('password')} />
+                <CustomInput 
+                    type='password' 
+                    name='password' 
+                    label='Contraseña' 
+                    id='pass' 
+                    val={formik.values.password} 
+                    onChng={formik.handleChange} 
+                    onBl={formik.handleBlur}
+                />
                 <div className='error mt-2'>
                     {formik.touched.password && formik.errors.password ? (
                         <div>
