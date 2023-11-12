@@ -5,14 +5,14 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import { login } from '../features/auth/authSlice';
+let schema = Yup.object().shape({
+    email: Yup.string().email('El email debería ser válido').required('El email es requerido'),
+    password: Yup.string().required('La contraseña es requerido'),
+
+})
 const Login =()=> {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    let schema = Yup.object().shape({
-        email: Yup.string().email('El email debería ser válido').required('El email es requerido'),
-        password: Yup.string().required('La contraseña es requerido'),
-
-    })
     const formik = useFormik({
         initialValues:{
             email:"",
@@ -21,16 +21,16 @@ const Login =()=> {
         validationSchema: schema,
         onSubmit:(values)=>{
             dispatch(login(values));
-            alert(JSON.stringify(values, null, 2));
         },
     });
-    const{user, isLoading, isError, isSuccess, message}=useSelector((state)=>state.auth);
+    const authState = useSelector((state)=>state);
+    const{user, isLoading, isError, isSuccess, message}=authState.auth;
 
     useEffect(()=>{
-        if(!user==null || isSuccess){
+        if(isSuccess){
             navigate("admin");
         }else{
-            alert("no");
+            navigate("");
         }
     },[user, isLoading, isError, isSuccess, message]);
   return (
@@ -42,9 +42,12 @@ const Login =()=> {
         <div className='my-5 w-25 bg-white rounded-3 mx-auto p-4'>
             <h3 className='text-center  title'>Iniciar sesión</h3>
             <p className='text-center'>Ingresa a tu cuenta para continuar</p>
+            <div className='error text-center'>
+                {message.message ==='Rejected' ? "No eres un administrador":""}
+            </div>
             <form action='' onSubmit={formik.handleSubmit}>
                 <CustomInput type='text' name='email' label='Correo electrónico' id='email' val={formik.values.email} onCh={formik.handleChange('email')} />
-                <div className='error'>
+                <div className='error mt-2'>
                     {formik.touched.email && formik.errors.email ? (
                         <div>
                             {formik.errors.email}
@@ -52,7 +55,7 @@ const Login =()=> {
                     ):null}
                 </div>
                 <CustomInput type='password' name='password' label='Contraseña' id='pass' val={formik.values.password} onCh={formik.handleChange('password')} />
-                <div className='error'>
+                <div className='error mt-2'>
                     {formik.touched.password && formik.errors.password ? (
                         <div>
                             {formik.errors.password}
