@@ -7,11 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import { useFormik} from 'formik';
 import { createBrand } from '../features/brand/brandSlice';
-
+import { resetBrandState } from '../features/brand/brandSlice';
 
 let schema = Yup.object().shape({
   title: Yup.string().required('El nombre de la marca es requerido'),
-})
+});
+
 function Addbrand() {
   const dispatch = useDispatch();
   const navigate =useNavigate();
@@ -26,19 +27,21 @@ function Addbrand() {
     if(isError){
       toast.error('¡🦄 Algo está mal y no fue registrada tu marca!');
     }
-  },[isSuccess, isError, isLoading])
+  },[isSuccess, isError, isLoading]);
 
   const formik = useFormik({
     initialValues:{
       title:"",
     },
     validationSchema: schema,
-    onSubmit :(values)=>{
+    onSubmit:(values)=>{
       dispatch(createBrand(values));
       formik.resetForm();
       setTimeout(()=>{
+        dispatch(resetBrandState());
         navigate('/admin/list-brand');
       },3000);
+      
     },
   });
 
@@ -47,7 +50,7 @@ function Addbrand() {
         <h3 className='mb-4 title'>Añadir marca</h3>
         <div>
             <form action='' onSubmit={formik.handleSubmit}>
-                <CustomInput type='text' label='Escriba la marca del producto'name='title' onChng={formik.handleChange('title')} onBl={formik.handleBlur('title')} val={formik.values.title} />
+                <CustomInput type='text' label='Escriba la marca del producto' name='title' onChng={formik.handleChange('title')} onBl={formik.handleBlur('title')} val={formik.values.title} />
                 <div className='error'>
                   {
                     formik.touched.title && formik.errors.title

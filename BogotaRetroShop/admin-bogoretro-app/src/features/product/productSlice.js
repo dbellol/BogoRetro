@@ -27,7 +27,7 @@ const initialState={
 export const productSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {resetProductState: () => initialState,},
     extraReducers:(builder)=>{
         builder.addCase(getProducts.pending, (state)=>{
             state.isLoading=true;
@@ -56,4 +56,5 @@ export const productSlice = createSlice({
         });
     },
 });
+export const { resetProductState } = productSlice.actions;
 export default productSlice.reducer;
