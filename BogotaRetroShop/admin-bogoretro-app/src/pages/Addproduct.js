@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 import 'react-widgets/styles.css';
 import 'react-quill/dist/quill.snow.css';
 import { delImg, uploadImg } from '../features/upload/uploadSlice';
+import { createProducts } from '../features/product/productSlice';
 
 let schema = Yup.object().shape({
   title: Yup.string().required('El título es requerido'),
@@ -51,13 +52,16 @@ const Addproduct = () => {
   });
 
   const img=[];
-  imgState.forEach(i => {
+  imgState.forEach((i) => {
     img.push({
       public_id: i.public_id,
       url: i.url,
     })
   });
-  console.log(img);
+  useEffect(()=>{
+    formik.values.color=color;
+    formik.values.image=img;
+  },[color, img])
   const formik = useFormik({
     initialValues:{
       title:"",
@@ -71,13 +75,13 @@ const Addproduct = () => {
       image:"",
     },
     validationSchema: schema,
-    onSubmit:(values)=>{
-      alert(JSON.stringify(values));
+    onSubmit :(values)=>{
+      dispatch(createProducts(values));
     },
 });
     const [desc, setDesc] = useState();
     const handleDesc=(e)=>{
-        setDesc(e);
+      setDesc(e);
     }
   return (
     <div>
@@ -142,7 +146,7 @@ const Addproduct = () => {
                 </Multiselect>
                 <div className='error'>
                   {
-                    formik.touched.color && formik.errors.color
+                    formik.touched.colors && formik.errors.colors
                   }
                 </div>
                 <CustomInput type='number' label='Ingrese el precio del producto' name='price' onChng={formik.handleChange('price')} onBlr={formik.handleBlur('price')} val={formik.values.price}/>
