@@ -18,11 +18,6 @@ const columns = [
     },
   },
   {
-    title: 'Descripcion',
-    dataIndex: 'description',
-    sorter:(a,b)=>a.description.length - b.description.length,
-  },
-  {
     title: 'Precio',
     dataIndex: 'price',
     sorter: (a, b) => {
@@ -59,11 +54,9 @@ const columns = [
         return 0;
       }
       return a.brand.localeCompare(b.brand);
-    },  },
-  {
-    title: 'Color',
-    dataIndex: 'color',
+    },  
   },
+  
   {
     title: 'Acción',
     dataIndex: 'action',
@@ -79,12 +72,10 @@ const Productlist = () => {
   for (let i = 0; i < productState.length; i++) {
     data1.push({
       title: productState[i].title,
-      description: productState[i].description,
       price: "$"+productState[i].price+" COP",
       age: productState[i].age,
       category: productState[i].category,
       brand: productState[i].brand,
-      color: productState[i].color,
       action:(
         <>
           <Link to='/' className='fs-3 text-danger'>
