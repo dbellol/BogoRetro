@@ -14,6 +14,7 @@ const brandRouter=require('./routes/brandRoutes');
 const couponRouter=require('./routes/couponRoute');
 const colorRouter=require('./routes/colorRoute');
 const enqRouter = require('./routes/enqRoute');
+const uploadRouter = require('./routes/uploadRoute');
 const { errorHandler, notFound } = require('./middlewares/errorHandler');
 const morgan=require('morgan');
 dbConnect();
@@ -34,6 +35,8 @@ app.use('/api/brand', brandRouter);
 app.use('/api/coupon', couponRouter);
 app.use('/api/color', colorRouter);
 app.use('/api/enquiry', enqRouter);
+app.use('/api/upload', uploadRouter);
+
 
 
 

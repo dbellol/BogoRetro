@@ -34,6 +34,7 @@ const uploadPhoto = multer({
 
 /*Recalcular el tamaño de la imagen del producto*/
 const productImgResize = async (req, res, next) => {
+    console.log(req.files)
     if (!req.files) return next();
 
     await Promise.all(
@@ -42,6 +43,7 @@ const productImgResize = async (req, res, next) => {
             fs.unlinkSync(`public/images/products/${file.filename}`);
         })
         );
+    console.log(req.files)
     next();
 }
 

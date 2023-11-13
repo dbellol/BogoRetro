@@ -6,37 +6,42 @@ import ReactQuill from 'react-quill';
 import { getBrands } from '../features/brand/brandSlice';
 import { getColors } from '../features/color/colorSlice';
 import { getCategories } from '../features/pcategory/pcategorySlice';
-import {useFormik} from 'formik';
+import { useFormik} from 'formik';
+import Dropzone from 'react-dropzone'
 import * as Yup from 'yup';
 import 'react-widgets/styles.css';
 import 'react-quill/dist/quill.snow.css';
+import { delImg, uploadImg } from '../features/upload/uploadSlice';
 
 let schema = Yup.object().shape({
   title: Yup.string().required('El título es requerido'),
   description: Yup.string().required('La descripción es requerida'),
-  price:Yup.number().min(10000)
-  .max(100000000).required("El precio es requerido, mínimo 10.000 máximo 100.000.000"),
-  age:Yup.number().min(0)
-  .max(1000).required("La edad es requerida, mínimo 0 años, máximo 1000"),
+  price:Yup.number().min(10000, 'El precio mínimo es 10000')
+  .max(100000000, 'El precio máximo es 100000000').required("El precio es requerido, mínimo 10.000 máximo 100.000.000"),
+  age:Yup.number().min(0, 'La edad mínima es 0')
+  .max(1000, 'La edad máxima es 1000').required("La edad es requerida, mínimo 0 años, máximo 1000"),
   brand: Yup.string().required('La marca es requerida'),
   category: Yup.string().required('La categoría es requerida'),
   color: Yup.array().required('Los colores son requeridos'),
-  quantity:Yup.number().min(1)
-  .max(1000).required("La cantidad es requerida, mínimo 1 máximo 1000"),
+  quantity:Yup.number().min(1, 'La cantidad mínima es 1')
+  .max(1000, 'La cantidad máxima es 1000').required("La cantidad es requerida, mínimo 1 máximo 1000"),
 })
 const Addproduct = () => {
   const [color, setColor]=useState([])
+  const [image, setImages]=useState([])
+
   const dispatch =useDispatch();
   useEffect(()=>{
     dispatch(getBrands());
     dispatch(getCategories());
     dispatch(getColors());
-    formik.values.color = color;
   },[])
-
+  
   const brandState=useSelector((state)=>state.brand.brands);
   const pCatState=useSelector((state)=>state.pCategory.pCategories);
   const colorState=useSelector((state)=>state.color.colors);
+  const imgState=useSelector((state)=>state.upload.image);
+
   const colors=[];
   colorState.forEach(i => {
     colors.push({
@@ -45,6 +50,14 @@ const Addproduct = () => {
     })
   });
 
+  const img=[];
+  imgState.forEach(i => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    })
+  });
+  console.log(img);
   const formik = useFormik({
     initialValues:{
       title:"",
@@ -55,6 +68,7 @@ const Addproduct = () => {
       category:"",
       color:"",
       quantity:"",
+      image:"",
     },
     validationSchema: schema,
     onSubmit:(values)=>{
@@ -124,26 +138,53 @@ const Addproduct = () => {
                     formik.touched.category && formik.errors.category
                   }
                 </div>
-                <Multiselect name='color' dataKey="id" textField='color' label='Elgie los colores' data={colors} onChange={(e)=>setColor(e)}>
+                <Multiselect name='color' dataKey="id" textField='color' data={colors} onChange={(e)=>setColor(e)}>
                 </Multiselect>
                 <div className='error'>
                   {
                     formik.touched.color && formik.errors.color
                   }
                 </div>
-                <CustomInput type='number' label='Ingrese el precio del producto' name='price' onChange={formik.handleChange('price')} onBlur={formik.handleBlur('price')} value={formik.values.price}/>
+                <CustomInput type='number' label='Ingrese el precio del producto' name='price' onChng={formik.handleChange('price')} onBlr={formik.handleBlur('price')} val={formik.values.price}/>
                 <div className='error'>
                   {
                     formik.touched.price && formik.errors.price
                   }
                 </div>
-                <CustomInput type='number' label='Ingrese la edad del producto' name='age' onChange={formik.handleChange('age')} onBlur={formik.handleBlur('age')} value={formik.values.age} />
+                <CustomInput type='number' label='Ingrese la edad del producto' name='age' onChng={formik.handleChange('age')} onBlr={formik.handleBlur('age')} val={formik.values.age} />
                 <div className='error'>
                   {formik.touched.age && formik.errors.age}
                 </div>
 
-                <CustomInput type='number' label='Ingresa la cantidad de productos' />
-                
+                <CustomInput type='number' label='Ingresa la cantidad de productos' onChng={formik.handleChange('quantity')} onBlr={formik.handleBlur('quantity')} val={formik.values.quantity}/>
+                <div className='error'>
+                  {formik.touched.quantity && formik.errors.quantity}
+                </div>
+                <div className='bg-white border-1 p-5 text-center'>
+                  <Dropzone onDrop={acceptedFiles => dispatch(uploadImg(acceptedFiles))}>
+                    {({getRootProps, getInputProps}) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <p>Drag 'n' drop some files here, or click to select files</p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </div>
+                <div className='showimages d-flex flex-wrap gap-3'>
+                  {
+                    imgState.map((i,j)=>{
+                      return(
+                        <div className='position-relative' key={j}>
+                          <button type='button' onClick={()=>dispatch(delImg(i.public_id))} className='btn-close  position-absolute' style={{top:"10px",right:"10px"}}></button>
+                          <img src={i.url} alt="" width={200} height={200} />
+                        </div>
+                      );
+                    })
+                  }
+                  
+                </div>
                 <button className='btn btn-success border-0 rounded-3 my-5' type='submit'>Añadir producto</button>
 
             </form>

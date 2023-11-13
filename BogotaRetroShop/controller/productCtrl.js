@@ -2,9 +2,7 @@ const Product = require("../models/productModel");
 const asyncHandler=require('express-async-handler');
 const slugify=require('slugify');
 const User = require("../models/userModel");
-const {cloudinaryUploadImg, cloudinaryDeleteImg} = require('../utils/cloudinary');
 const validateMongoId = require("../utils/validateMongodbId");
-const fs = require('fs');
 /*Crear producto*/
 const createProduct=asyncHandler(async(req,res)=>{
     try{
@@ -201,39 +199,5 @@ const rating = asyncHandler(async(req,res)=>{
     }
 });
 /*Cargar imagen del producto*/
-const uploadImages=asyncHandler(async(req,res)=>{
-    const{_id}= req.user;
-    try{
-        const uploader=(path)=>cloudinaryUploadImg(path,"images");
-        const urls=[];
-        const files = req.files;
 
-        for(const file of files){
-            const{path}=file;
-            const newpath = await uploader(path);
-            console.log(newpath);
-            urls.push(newpath);
-            console.log(file);
-            fs.unlinkSync(path);
-        }
-        const images =urls.map((file)=>{
-            return file;
-        })
-        res.json(images);
-    }catch(error){
-        throw new Error(error);
-    }
-});
-
-/*Borrar imagen*/
-const deleteImages=asyncHandler(async(req,res)=>{
-    const{id}= req.params;
-    try{
-        const deleted=cloudinaryDeleteImg(id,"images");
-        res.json({message:"Borrado"});
-    }catch(error){
-        throw new Error(error);
-    }
-});
-
-module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating, uploadImages, deleteImages};
+module.exports={createProduct, getProduct, getAllProduct, updateProduct, deleteProduct, addToWishList, rating};
