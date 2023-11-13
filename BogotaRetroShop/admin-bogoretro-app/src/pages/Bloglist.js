@@ -49,6 +49,7 @@ const Bloglist = () => {
     data1.push({
       key: i+1,
       title: blogState[i].title,
+      category:  blogState[i].category,
       action:(
         <>
           <Link to='/' className='fs-3 text-danger'>

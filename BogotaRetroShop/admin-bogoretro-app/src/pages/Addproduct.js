@@ -16,6 +16,7 @@ import { createProducts } from '../features/product/productSlice';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { resetProductState } from '../features/product/productSlice'; 
+
 let schema = Yup.object().shape({
   title: Yup.string().required('El título es requerido'),
   description: Yup.string().required('La descripción es requerida'),

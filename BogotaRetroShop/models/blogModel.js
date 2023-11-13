@@ -8,7 +8,7 @@ var blogSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
-    decription:{
+    description:{
         type:String,
         required:true,
     },
@@ -38,14 +38,16 @@ var blogSchema = new mongoose.Schema({
         ref: "User",
     }],
     image:{
-        type: String,
-        default:"https://blueandgreentomorrow.com/wp-content/uploads/2018/06/green-blogging.jpg",
+        public_id: String,
+        url:String,
     },
     author:{
         type: String,
         default: "Admin",
     },
-    images:[],
+    images:[
+        
+    ],
 },{
     toJSON:{
         virtuals: true,
