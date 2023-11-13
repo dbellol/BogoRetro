@@ -14,12 +14,16 @@ import Productlist from './pages/ProductList';
 import Brandlist from './pages/BrandList';
 import Categorylist from './pages/Categorylist';
 import Colorlist from './pages/Colorlist';
+import CouponList from './pages/CouponList';
 import Addblog from './pages/Addblog';
 import Addblocat from './pages/Addblocat';
 import Addcolor from './pages/Addcolor';
 import Addcat from './pages/Addcat';
 import Addbrand from './pages/Addbrand';
 import Addproduct from './pages/Addproduct';
+import AddCoupon from './pages/AddCoupon';
+
+
 function App() {
   return (
     <Router>
@@ -44,6 +48,8 @@ function App() {
           <Route path="list-category" element={<Categorylist/>}/>
           <Route path="color" element={<Addcolor/>}/>
           <Route path="list-color" element={<Colorlist/>}/>
+          <Route path="coupon" element={<AddCoupon/>}/>
+          <Route path="coupon-list" element={<CouponList/>}/>
         </Route>
       </Routes>
     </Router>

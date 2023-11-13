@@ -50,7 +50,7 @@ function Addbrand() {
         <h3 className='mb-4 title'>Añadir marca</h3>
         <div>
             <form action='' onSubmit={formik.handleSubmit}>
-                <CustomInput type='text' label='Escriba la marca del producto' name='title' onChng={formik.handleChange('title')} onBl={formik.handleBlur('title')} val={formik.values.title} />
+                <CustomInput type='text' label='Escriba la marca del producto' name='title' onChng={formik.handleChange('title')} onBl={formik.handleBlur('title')} val={formik.values.title} id='brand' />
                 <div className='error'>
                   {
                     formik.touched.title && formik.errors.title
