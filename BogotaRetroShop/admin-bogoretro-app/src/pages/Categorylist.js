@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Table } from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import {BiEdit} from 'react-icons/bi';
 import {AiFillDelete} from 'react-icons/ai';
-import { getCategories } from '../features/pcategory/pcategorySlice';
+import { getCategories, deleteAProductCategory, resetcProductState } from '../features/pcategory/pcategorySlice';
 import {Link} from 'react-router-dom';
+import CustomModal from '../components/CustomModal';
+
 const columns = [
   {
     title: 'NSerial',
@@ -27,8 +29,18 @@ const columns = [
   },
 ];
 const Categorylist = () => {
+  const [open, setOpen] = useState(false);
+  const [pCatId,setpCatId]=useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setpCatId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(()=>{
+    dispatch(resetcProductState());
     dispatch(getCategories());
   },[]);
   const pCatState = useSelector((state)=>state.pCategory.pCategories);
@@ -42,12 +54,21 @@ const Categorylist = () => {
           <Link to='/' className='fs-3 text-danger'>
             <BiEdit />
           </Link>
-          <Link to='/' className='ms-3 fs-3 text-danger'>
+          <button className='ms-3 fs-3 text-danger bg-transparent border-0'
+          onClick={()=>showModal(pCatState[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       )
     });
+  }
+  const deleteCategory = async (e) =>{
+    dispatch(deleteAProductCategory(e));
+    setOpen(false);
+    setTimeout(()=>{
+      dispatch(getCategories());
+    },100);
   }
   return (
     <div>
@@ -55,6 +76,8 @@ const Categorylist = () => {
         <div>
             <Table columns={columns} dataSource={data1} />
         </div>
+        <CustomModal hideModal={hideModal} open={open} performAction={()=>{deleteCategory(pCatId);}}
+        title='¿Estás seguro que buscas eliminar esta categoría?'/>
     </div>
   )
 }

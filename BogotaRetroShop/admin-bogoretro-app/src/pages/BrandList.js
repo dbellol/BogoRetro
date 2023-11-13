@@ -6,6 +6,7 @@ import {AiFillDelete} from 'react-icons/ai';
 import { deleteABrand, getBrands, resetBrandState } from '../features/brand/brandSlice';
 import {Link} from 'react-router-dom';
 import CustomModal from '../components/CustomModal';
+
 const columns = [
   {
     title: 'NSerial',
