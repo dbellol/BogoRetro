@@ -33,7 +33,7 @@ function Addcat() {
       toast.success('¡🦄 Categoría añadida correctamente!');
     }
     if(updatedCategory && isSuccess){
-      toast.success('¡🦄 Actualización del nombre de la marca registrada correctamente!');
+      toast.success('¡🦄 Actualización del nombre de la categoría registrada correctamente!');
       navigate('/admin/list-category')
     }
     if(isError){
@@ -66,7 +66,7 @@ function Addcat() {
   });
   return (
     <div>
-        <h3 className='mb-4  title'>{getPCatId!==undefined?"Editar":"Añadir"}categoría</h3>
+        <h3 className='mb-4  title'>{getPCatId!==undefined?"Editar":"Añadir"} categoría</h3>
         <div>
             <form action='' onSubmit={formik.handleSubmit}>
             <CustomInput type='text' label='Escriba la categoría del producto'name='title' onChng={formik.handleChange('title')} onBl={formik.handleBlur('title')} val={formik.values.title} />

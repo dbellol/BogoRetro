@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Table } from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import {BiEdit} from 'react-icons/bi';
 import {AiFillDelete} from 'react-icons/ai';
-import { getAllCoupons } from '../features/coupon/couponSlice';
+import { getAllCoupon,deleteACoupon,resetCouponstate } from '../features/coupon/couponSlice';
 import {Link} from 'react-router-dom';
+import CustomModal from '../components/CustomModal';
+
 const columns = [
   {
     title: 'NSerial',
@@ -45,12 +47,21 @@ const columns = [
 ];
 
 const CouponList = () => {
+  const [open, setOpen] = useState(false);
+  const [couponId,setCouponId]=useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setCouponId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(()=>{
-    dispatch(getAllCoupons());
+    dispatch(resetCouponstate());
+    dispatch(getAllCoupon());
   },[]);
   const couponState = useSelector((state)=>state.coupon.coupons);
-console.log("Estado de cupones:", couponState); 
   const data1 = [];
   for (let i=0; i<couponState.length; i++){
     data1.push({
@@ -60,15 +71,23 @@ console.log("Estado de cupones:", couponState);
       expiry: new Date(couponState[i].expiry),
       action:(
         <>
-          <Link to='/' className='fs-3 text-danger'>
+          <Link to={`/admin/coupon/${couponState[i]._id}`} className='fs-3 text-danger'>
             <BiEdit />
           </Link>
-          <Link to='/' className='ms-3 fs-3 text-danger'>
+          <button className='ms-3 fs-3 text-danger bg-transparent border-0'
+          onClick={()=>showModal(couponState[i]._id)}>
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       )
     });
+  }
+  const deleteCoupon = (e) =>{
+    dispatch(deleteACoupon(e));
+    setOpen(false);
+    setTimeout(()=>{
+      dispatch(getAllCoupon());
+    },100);
   }
   return (
     <div>
@@ -76,6 +95,8 @@ console.log("Estado de cupones:", couponState);
         <div>
             <Table columns={columns} dataSource={data1} />
         </div>
+        <CustomModal hideModal={hideModal} open={open} performAction={()=>{deleteCoupon(couponId);}}
+        title='¿Estás seguro que buscas eliminar este cupón?'/>
     </div>
   )
 }
