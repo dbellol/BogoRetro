@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {BiArrowBack} from 'react-icons/bi'
-import { getAEnquiry } from '../features/enquiry/enquirySlice';
+import { getAEnquiry, updateAEnquiry, resetEnqState} from '../features/enquiry/enquirySlice';
 const ViewEnq=()=> {
     const location = useLocation();
     const dispatch = useDispatch();
@@ -15,7 +15,17 @@ const ViewEnq=()=> {
     },[getEnqId]);
     const goBack=()=>{
         navigate(-1);
-    }
+    };
+    const setEnquiryStatus=(e,i)=>{
+        const data ={id: i, enqData:e };
+        dispatch(updateAEnquiry(data));
+        dispatch(resetEnqState());
+        setTimeout(()=>{
+            dispatch(getAEnquiry(getEnqId));
+            dispatch(resetEnqState());
+
+        },100)
+      }
   return (
     <div>
         <div className='d-flex justify-content-between align-items-center'>
@@ -45,7 +55,7 @@ const ViewEnq=()=> {
             </div>
             <div className='d-flex align-items-center gap-3'>
                 <h6 className='mb-0'>Cambiar estado:</h6>
-                <select name="" defaultValue={enqStatus ? enqStatus:"Enviado"} className='form-control form-select' id="">
+                <select name="" defaultValue={enqStatus ? enqStatus:"Enviado"} className='form-control form-select' id="" onChange={(e)=>{setEnquiryStatus(e.target.value, getEnqId)}}>
                     <option value='Enviado'>Enviado</option>
                     <option value='Contactado'>Contactado</option>
                     <option value='En progreso'>En progreso</option>
