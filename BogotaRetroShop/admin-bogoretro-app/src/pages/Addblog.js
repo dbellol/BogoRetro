@@ -8,10 +8,10 @@ import * as Yup from 'yup';
 import { useFormik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
-import {useNavigate} from 'react-router';
+import {useNavigate, useLocation} from 'react-router';
 import {getCategories} from '../features/bcategory/bcategorySlice'
 import 'react-toastify/dist/ReactToastify.css';
-import { createBlogs } from '../features/blogs/blogSlice';
+import { createBlogs, getABlog, updateABlog } from '../features/blogs/blogSlice';
 import { resetBlogState } from '../features/blogs/blogSlice';
 
 let schema = Yup.object().shape({
@@ -23,19 +23,35 @@ let schema = Yup.object().shape({
 const Addblog = () => {
   const dispatch =useDispatch();
   const navigate =useNavigate();
-  const [image, setImages]=useState([]);
-
-  useEffect(()=>{
-    dispatch(getCategories());
-  },[])
+  const location =useLocation();
+  const getBlogId = location.pathname.split('/')[3];
   const bCatState=useSelector((state)=>state.bCategory.bCategories);
   const imgState=useSelector((state)=>state.upload.image);
   const newBlog=useSelector((state)=>state.blogs);
-  const {isSuccess, isError, isLoading, createdBlog} = newBlog;
+  const {isSuccess, isError, isLoading, createdBlog, blogName, updatedBlog,blogDesc, blogCategory, blogImages} = newBlog;
+
+  useEffect(()=>{
+    if(getBlogId!== undefined){
+      dispatch(getABlog(getBlogId));
+      img.push(blogImages);
+    }else{
+      dispatch(resetBlogState());
+    }
+  },[getBlogId]); 
+
+  useEffect(()=>{
+    dispatch(resetBlogState());
+    dispatch(getCategories());
+  },[])
+  
   
   useEffect(()=>{
     if(isSuccess && createdBlog){
       toast.success('¡🦄 Producto registrado correctamente!');
+    }
+    if(isSuccess && updatedBlog){
+      toast.success('¡🦄 Producto modificado correctamente!');
+      navigate('/admin/blog-list')
     }
     if(isError){
       toast.error('¡🦄 Algo está mal y no fue registrado tu producto!');
@@ -52,30 +68,37 @@ const Addblog = () => {
 
   useEffect(()=>{
     formik.values.image=img;
-  },[img]);
+  },[blogImages]);
+  
 
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues:{
-      title:"",
-      description:"",
-      category:"",
-      image:"",
+      title: blogName || "",
+      description:blogDesc || "",
+      category:blogCategory || "",
+      image: "",
     },
     validationSchema: schema,
     onSubmit :(values)=>{
-      dispatch(createBlogs(values));
-      formik.resetForm();
-      setTimeout(()=>{
+      if(getBlogId!==undefined){
+        const data ={id:getBlogId, blogData:values};
+        dispatch(updateABlog(data));
         dispatch(resetBlogState());
-        navigate('/admin/blog-list');
-      },3000);
+      }else{
+        dispatch(createBlogs(values));
+        formik.resetForm();
+        setTimeout(()=>{
+          dispatch(resetBlogState());
+          navigate('/admin/blog-list');
+        },300);
+      }
     },
   });
 
   return (
     <div>
-        <h3 className='mb-4 title'>
-        Crear blog</h3>
+        <h3 className='mb-4 title'>{getBlogId!== undefined ? "Editar":"Crear"} blog</h3>
        
         <div className=''>
             <form onSubmit={formik.handleSubmit} className='d-flex gap-3 flex-column'>
@@ -88,7 +111,7 @@ const Addblog = () => {
                   }
                 </div>
                 <select name='category' onChange={formik.handleChange('category')} onBlur={formik.handleBlur('category')} value={formik.values.category} className='form-control py-3 mb-3' id="">
-                  <option value="">Seleccione la categoría del producto</option>
+                  <option value="">Seleccione la categoría del blog</option>
                   {
                     bCatState.map((i,j)=>{
                       return (
@@ -126,7 +149,7 @@ const Addblog = () => {
                 </div>
                 <div className='showimages d-flex flex-wrap gap-3'>
                   {
-                    imgState.map((i,j)=>{
+                    imgState?.map((i,j)=>{
                       return(
                         <div className='position-relative' key={j}>
                           <button type='button' onClick={()=>dispatch(delImg(i.public_id))} className='btn-close  position-absolute' style={{top:"10px",right:"10px"}}></button>
@@ -137,7 +160,7 @@ const Addblog = () => {
                   }
                   
                 </div>
-                <button className='btn btn-success border-0 rounded-3 my-5' type='submit'>Crear blog</button>
+                <button className='btn btn-success border-0 rounded-3 my-5' type='submit'>{getBlogId!== undefined ? "Editar":"Crear"} blog</button>
             </form>
         </div>
         

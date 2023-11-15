@@ -1,10 +1,12 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react';
 import { Table } from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import {BiEdit} from 'react-icons/bi';
 import {AiFillDelete} from 'react-icons/ai';
-import { getBlogs } from '../features/blogs/blogSlice';
+import { getBlogs, resetBlogState, deleteABlog } from '../features/blogs/blogSlice';
 import {Link} from 'react-router-dom';
+import CustomModal from '../components/CustomModal';
+
 const columns = [
   {
     title: 'NSerial',
@@ -39,8 +41,18 @@ const columns = [
   },
 ];
 const Bloglist = () => {
+  const [open, setOpen] = useState(false);
+  const [blogId,setBlogId]=useState("");
+  const showModal = (e) => {
+    setOpen(true);
+    setBlogId(e);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   useEffect(()=>{
+    dispatch(resetBlogState());
     dispatch(getBlogs());
   },[]);
   const blogState = useSelector((state)=>state.blogs.blogs);
@@ -52,15 +64,24 @@ const Bloglist = () => {
       category:  blogState[i].category,
       action:(
         <>
-          <Link to='/' className='fs-3 text-danger'>
+          <Link to={`/admin/blog/${blogState[i]._id}`} className='fs-3 text-danger'>
             <BiEdit />
           </Link>
-          <Link to='/' className='ms-3 fs-3 text-danger'>
+          <button className='ms-3 fs-3 text-danger bg-transparent border-0'
+          onClick={()=>showModal(blogState[i]._id)}
+          >
             <AiFillDelete />
-          </Link>
+          </button>
         </>
       )
     });
+  }
+  const deleteBlog = (e) =>{
+    dispatch(deleteABlog(e));
+    setOpen(false);
+    setTimeout(()=>{
+      dispatch(getBlogs());
+    },100);
   }
   return (
     <div>
@@ -68,6 +89,8 @@ const Bloglist = () => {
         <div>
             <Table columns={columns} dataSource={data1} />
         </div>
+        <CustomModal hideModal={hideModal} open={open} performAction={()=>{deleteBlog(blogId);}}
+        title='¿Estás seguro que buscas eliminar este blog?'/>
     </div>
   )
 }

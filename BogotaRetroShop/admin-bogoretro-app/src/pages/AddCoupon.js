@@ -10,15 +10,9 @@ import {resetCouponstate,
   getACoupon,
   updateACoupon,
 } from "../features/coupon/couponSlice";
-const today = new Date();
-const maxDate = new Date();
-maxDate.setDate(today.getDate() + 5);
-
 let schema = Yup.object().shape({
   name: Yup.string().required('El nombre de la marca es requerido'),
-  expiry: Yup.date().min(today, `La fecha de expiración no puede ser anterior a la fecha actual`)
-  .max(maxDate, `La fecha de expiración no no puede ser posterior a 5 días desde hoy`)
-  .required('La fecha de expiración es obligatoria'),
+  expiry: Yup.date().required('La fecha es requerida'),
   discount: Yup.number().min(1, 'El porcentaje mínimo es 1%').max(99, 'El porcentaje máximo es 99%').required('El porcentaje es obligatorio'),
 });
 const AddCoupon = () => {
@@ -54,13 +48,13 @@ const AddCoupon = () => {
 
   useEffect(() => {
     if (isSuccess && createdCoupon) {
-      toast.success("¡🦄 Cupón registrada correctamente!");
+      toast.success("¡🦄 Cupón registrado correctamente!");
     }
     if (isSuccess && updatedCoupon) {
       toast.success("¡🦄 Cupón actualizado Successfullly!");
       navigate("/admin/coupon-list");
     }
-    if (isError && couponName && couponDiscount && couponExpiry) {
+    if (isError) {
       toast.error("Something Went Wrong!");
     }
   }, [isSuccess, isError, isLoading]);
@@ -68,22 +62,22 @@ const AddCoupon = () => {
     enableReinitialize: true,
     initialValues: {
       name: couponName || "",
-      expiry: changeDateFormet(couponExpiry) || "",
+      expiry: changeDateFormet(couponExpiry).toLocaleDateString || "",
       discount: couponDiscount || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      if (getCouponId !== undefined) {
-        const data = { id: getCouponId, couponData: values };
-        dispatch(updateACoupon(data));
+      if(getCouponId !== undefined){
+        const data = {id:getCouponId, couponData:values};
+        dispatch(updateACoupon(data))
         dispatch(resetCouponstate());
-      } else {
+
+      }else{
         dispatch(createCoupon(values));
         formik.resetForm();
         setTimeout(() => {
-          dispatch(resetCouponstate);
-        }, 300);
-      }
+        }, 300)}
+    
     },
   });
 

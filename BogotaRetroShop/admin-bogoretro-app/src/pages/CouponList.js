@@ -68,7 +68,7 @@ const CouponList = () => {
       key: i+1,
       name: couponState[i].name,
       discount: couponState[i].discount + "%",
-      expiry: new Date(couponState[i].expiry),
+      expiry: new Date(couponState[i].expiry).toLocaleString(),
       action:(
         <>
           <Link to={`/admin/coupon/${couponState[i]._id}`} className='fs-3 text-danger'>

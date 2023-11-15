@@ -19,6 +19,7 @@ function Addblocat() {
   const getBlogCategoryId = location.pathname.split('/')[3];
   const newBlogCategory=useSelector((state)=>state.bCategory);
   const {isSuccess, isError, isLoading, createdBlogCategory, blogCategoryName, updatedBlogCategory} = newBlogCategory;
+  
   useEffect(()=>{
     if(getBlogCategoryId!== undefined){
       dispatch(getABlogCategory(getBlogCategoryId));
@@ -30,7 +31,7 @@ function Addblocat() {
   
   useEffect(()=>{
     if(isSuccess && createdBlogCategory){
-      toast.success('¡🦄 Marca registrada correctamente!');
+      toast.success('¡🦄 Categoría de blog registrada correctamente!');
     }
     if(updatedBlogCategory && isSuccess){
       toast.success('¡🦄 Actualización del nombre de la marca registrada correctamente!');
@@ -49,7 +50,7 @@ function Addblocat() {
     validationSchema: schema,
     onSubmit:(values)=>{
       if(getBlogCategoryId !== undefined){
-        const data={id:getBlogCategoryId, brandData:values};
+        const data={id:getBlogCategoryId, blogcategoryData:values};
         dispatch(updateABlogCategory(data));
         dispatch(resetBCategoryState());
 

@@ -19,7 +19,7 @@ const deleteBlogCategory = async (id) => {
     return response.data;
 };
 const updateBlogCategory = async (blogcategory) => {
-    const response = await axios.put(`${base_url}blogcategory/${blogcategory.id}`, {title: blogcategory.blogcategory.title}, config);
+    const response = await axios.put(`${base_url}blogcategory/${blogcategory.id}`, {title: blogcategory.blogcategoryData.title}, config);
     return response.data;
 };
 const bCategoryService ={

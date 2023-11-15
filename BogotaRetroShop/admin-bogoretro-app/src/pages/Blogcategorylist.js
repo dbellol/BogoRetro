@@ -77,7 +77,7 @@ const Blogcategorylist = () => {
         <div>
             <Table columns={columns} dataSource={data1} />
         </div>
-        <CustomModal hideModal={hideModal} open={open} performAction={()=>{deleteABlogCategory(blogCategoryId);}}
+        <CustomModal hideModal={hideModal} open={open} performAction={()=>{deleteBlogCategory(blogCategoryId);}}
         title='¿Estás seguro que buscas eliminar esta marca?'/>
     </div>
   )

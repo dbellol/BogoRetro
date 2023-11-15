@@ -35,6 +35,7 @@ function App() {
           <Route index element={<Dashboard/>}/>
           <Route path="enquiries" element={<Enquiries/>}/>
           <Route path="blog" element={<Addblog/>}/>
+          <Route path="blog/:id" element={<Addblog/>}/>
           <Route path="blog-list" element={<Bloglist/>}/>
           <Route path="blog-category" element={<Addblocat/>}/>
           <Route path="blogcategory/:id" element={<Addblocat/>}/>
