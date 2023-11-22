@@ -22,8 +22,6 @@ const ViewEnq=()=> {
         dispatch(resetEnqState());
         setTimeout(()=>{
             dispatch(getAEnquiry(getEnqId));
-            dispatch(resetEnqState());
-
         },100)
       }
   return (

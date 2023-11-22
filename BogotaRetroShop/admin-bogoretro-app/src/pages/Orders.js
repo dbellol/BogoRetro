@@ -12,7 +12,7 @@ const columns = [
   },
   {
     title: 'Nombre',
-    dataIndex: 'title',
+    dataIndex: 'name',
     sorter: (a, b) => {
       if (!a.name|| !b.name ) {
         // Manejar casos donde 'name' puede ser undefined o null
@@ -61,23 +61,15 @@ const Orders = () => {
   useEffect(()=>{
     dispatch(getOrders());
   },[]);
-  const orderState = useSelector((state)=>state.auth.orders);
+  const orderState = useSelector((state) => state.auth.orders);
+  console.log(orderState);
   const data1 = [];
   for (let i = 0; i < orderState.length; i++) {
-    data1.push({
-      key: i+1,
-      title: orderState[i].orderby.firstname+" "+orderState[i].orderby.lastname,
-      product: orderState[i].products.map((i)=>{
-        return (
-        <>
-          <ul>
-            <li>{i.product.title}</li>
-          </ul>
-        </>
-        );
-      }),
+    data1.push({      key: i+1,
+      name: orderState[i].orderby.firstname+" "+orderState[i].orderby.lastname,
+      product: <Link to={`/admin/order/${orderState[i].orderby._id}`}>Ver órdenes</Link>,
       amount: "$"+orderState[i].paymentIntent.amount+" COP",
-      date: new Date(orderState[i].createdAt), // Guardar como objeto Date
+      date: new Date(orderState[i].createdAt).toLocaleString(), // Guardar como objeto Date
       action:(
         <>
           <Link to='/' className='fs-3 text-danger'>

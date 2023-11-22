@@ -23,6 +23,7 @@ import Addbrand from './pages/Addbrand';
 import Addproduct from './pages/Addproduct';
 import AddCoupon from './pages/AddCoupon';
 import ViewEnq from './pages/ViewEnq';
+import ViewOrder from './pages/ViewOrder';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="blogcategory/:id" element={<Addblocat/>}/>
           <Route path="blog-category-list" element={<Blogcategorylist/>}/>
           <Route path="orders" element={<Orders/>}/>
+          <Route path="order/:id" element={<ViewOrder/>}/>
           <Route path="customers" element={<Customers/>}/>
           <Route path="product" element={<Addproduct/>}/>
           <Route path="product-list" element={<Productlist/>}/>
