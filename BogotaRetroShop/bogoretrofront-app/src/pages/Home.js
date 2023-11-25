@@ -1,11 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Marquee from 'react-fast-marquee'
-import BlogCard from '../components/BlogCard'
-import ProductCard from '../components/ProductCard'
-import Container from '../components/Container'
-import { services } from '../utils/Data'
+import {React, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import Marquee from 'react-fast-marquee';
+import BlogCard from '../components/BlogCard';
+import ProductCard from '../components/ProductCard';
+import Container from '../components/Container';
+import { services } from '../utils/Data';
+import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
+import { getAllblogs } from '../features/blogs/blogSlice';
+
 const Home = () => {
+  const blogStatex = useSelector((state) => state.blog);
+    const blogState = blogStatex?.blog?.blog || blogStatex?.blog;
+    console.log(blogState);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        getblogs() ;
+    },[]);
+    const getblogs=(()=>{
+        dispatch(getAllblogs()) ;
+    })
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -244,18 +258,18 @@ const Home = () => {
             </div>
           </div>
           <div className='row'>
-            <div className='col-3'>
-              <BlogCard></BlogCard>
-            </div>
-            <div className='col-3'>
-              <BlogCard></BlogCard>
-            </div>
-            <div className='col-3'>
-              <BlogCard></BlogCard>
-            </div>
-            <div className='col-3'>
-              <BlogCard></BlogCard>
-            </div>
+          {
+            Array.isArray(blogState) && blogState?.map((item,index)=>{
+              if(index<3){
+                  return(
+                      <div className='col-3' key={index}>
+                          <BlogCard id={item?._id} title={item?.title} description={item?.description} image={item?.image[0]?.url} date={moment(item?.createdAt).format('MMMM Do YYYY, h:mm a')}/>
+                      </div>
+                  )
+                }
+              }
+            )
+          }
           </div>
       </Container>
     </>

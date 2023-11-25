@@ -30,7 +30,12 @@ function WishList() {
         <Container class1='wishlist-wrapper home-wrapper-2 py-5'>
             <div className='row'>
                 {
-                      Array.isArray(wishlistState) && wishlistState.map((item,index)=>{
+                    Array.isArray(wishlistState) && wishlistState.length===0 &&(
+                        <div className='text-center fs-3'>No hay deseos</div>
+                    )
+                }
+                {
+                    Array.isArray(wishlistState) && wishlistState.map((item,index)=>{
                         return (
                             <div className='col-3' key={index}>
                                 <div className='wishlist-card position-relative bg-white'>

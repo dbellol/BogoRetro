@@ -37,13 +37,13 @@ const OurStore = () => {
                                     Reliquias
                                 </li>
                                 <li>
-                                    Ropa
+                                    Laptops
                                 </li>
                                 <li>
                                     Consolas
                                 </li>
                                 <li>
-                                    Cámaras
+                                    Hogar
                                 </li>
                             </ul>
                         </div>
@@ -143,11 +143,11 @@ const OurStore = () => {
                         </h3>
                         <div>
                             <div className='product-tags d-flex flex-wrap align-items-center gap-10'>
-                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Audífonos</span>
-                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Consolas</span>
-                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Laptops</span>
-                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Ropa</span>
-                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Celulares</span>
+                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Recomendados</span>
+                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Popular</span>
+                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Especial</span>
+                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Único</span>
+                                <span className='badge bg-light text-secondary rounded-3 py-2 px-3'>Retro</span>
                             </div>
                         </div>
                     </div>

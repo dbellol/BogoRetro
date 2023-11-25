@@ -151,7 +151,7 @@ const dislikeTheBlog = asyncHandler(async (req, res) => {
           fs.unlinkSync(path);
       }
       const findBlog = await Blog.findByIdAndUpdate(id,{
-          images:urls.map((file)=>{
+          image:urls.map((file)=>{
               return file;
           }),
       },{

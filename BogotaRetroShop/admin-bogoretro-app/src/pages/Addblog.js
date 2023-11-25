@@ -68,16 +68,16 @@ const Addblog = () => {
 
   useEffect(()=>{
     formik.values.image=img;
-  },[blogImages]);
+  },[img]);
   
 
   const formik = useFormik({
     enableReinitialize:true,
     initialValues:{
-      title: blogName || "",
-      description:blogDesc || "",
-      category:blogCategory || "",
-      image: "",
+      title: "",
+      description: "",
+      category:"",
+      image: [],
     },
     validationSchema: schema,
     onSubmit :(values)=>{
@@ -94,7 +94,15 @@ const Addblog = () => {
         },300);
       }
     },
+    
   });
+  useEffect(()=>{
+    const formattedImages = imgState.map(i => ({
+      public_id: i.public_id,
+      url: i.url,
+    }));
+    formik.setFieldValue("image", formattedImages);
+  }, [imgState]); // Dependencia cambiada a imgState
 
   return (
     <div>
@@ -149,7 +157,7 @@ const Addblog = () => {
                 </div>
                 <div className='showimages d-flex flex-wrap gap-3'>
                   {
-                    imgState?.map((i,j)=>{
+                    imgState.map((i,j)=>{
                       return(
                         <div className='position-relative' key={j}>
                           <button type='button' onClick={()=>dispatch(delImg(i.public_id))} className='btn-close  position-absolute' style={{top:"10px",right:"10px"}}></button>

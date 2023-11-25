@@ -14,10 +14,10 @@ const uploadImage = asyncHandler(async (req,res)=>{
             urls.push(newpath);
             fs.unlinkSync(path);
         }
-        const images =urls.map((file)=>{
+        const image =urls.map((file)=>{
             return file;
         })
-        res.json(images);
+        res.json(image);
     }catch(error){
         throw new Error(error);
     }
