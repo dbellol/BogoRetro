@@ -12,6 +12,10 @@
   --color-ededed: #ededed;
   --color-777777: #777777;
 }
+.errors{
+  color:red;
+  font-size: 12px;
+}
 .bg-color {
   background-color: #f5f5f5;
 }
