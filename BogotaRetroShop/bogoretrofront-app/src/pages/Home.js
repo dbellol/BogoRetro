@@ -1,5 +1,5 @@
 import {React, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
 import BlogCard from '../components/BlogCard';
 import ProductCard from '../components/ProductCard';
@@ -18,7 +18,7 @@ const Home = () => {
   const blogStatex = useSelector((state) => state.blog);
     const blogState = blogStatex?.blog?.blog || blogStatex?.blog;
     const productState = useSelector((state)=>state?.product?.product);
-    
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(()=>{
         getblogs() ;
@@ -268,11 +268,7 @@ const Home = () => {
               if(item.tags==='special'){
                 return(
                   <div key={index} className={'col-3'}>
-                  <Link /*to={`${location.pathname==='/'
-                      ?"/product/:id"
-                      :location.pathname==="/product/:id"
-                      ?"/product/:id"
-                      :":id"}`} */className='product-card position-relative'>
+                  <div className='product-card position-relative'>
                       <div className='wishlist-icon position-absolute'>
                           <button className='border-0 bg-transparent' onClick={()=>{addToWish(item?._id)}} >                           
                               <img src={process.env.PUBLIC_URL + '/images/wish.svg'} alt="wishlist"/>
@@ -300,18 +296,18 @@ const Home = () => {
                       </div>
                       <div className='action-bar position-absolute'>
                           <div className='d-flex flex-column gap-15'>
-                              <Link>
+                              <button className='border-0 bg-transparent'>
                                   <img src={process.env.PUBLIC_URL + '/images/prodcompare.svg'} alt="compare"/>
-                              </Link>
-                              <Link>
-                                  <img src={process.env.PUBLIC_URL + '/images/view.svg'} alt="view"/>
-                              </Link>
-                              <Link>
+                              </button>
+                              <button className='border-0 bg-transparent'>
+                                  <img onClick={()=>navigate('/product/'+item?._id)} src={process.env.PUBLIC_URL + '/images/view.svg'} alt="view"/>
+                              </button>
+                              <button className='border-0 bg-transparent'>
                                   <img src={process.env.PUBLIC_URL + '/images/add-cart.svg'} alt="addCart"/>
-                              </Link>
+                              </button>
                           </div>
                       </div>        
-                    </Link>
+                    </div>
                   </div>
                 )  
               }

@@ -1,11 +1,12 @@
 import {React, useEffect} from 'react'
 import ReactStars from 'react-rating-stars-component';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { addToWishlist } from '../features/products/productSlice';
 import { getUserProductWishlist } from '../features/user/userSlice';
 const ProductCard = (props) => {
     const{grid, data}=props;
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     console.log(data);
     let location  = useLocation();
@@ -26,14 +27,10 @@ const ProductCard = (props) => {
   return (
     <>
         {
-            data?.map((item, index)=>{
+            Array.isArray(data) && data?.map((item, index)=>{
                 return(
                     <div key={index} className={`${location.pathname==="/product"? `gr-${grid}`:'col-3'}`}>
-                        <Link /*to={`${location.pathname==='/'
-                            ?"/product/:id"
-                            :location.pathname==="/product/:id"
-                            ?"/product/:id"
-                            :":id"}`} */className='product-card position-relative'>
+                        <div className='product-card position-relative'>
                             <div className='wishlist-icon position-absolute'>
                                 <button className='border-0 bg-transparent' onClick={()=>{addToWish(item?._id)}} >                           
                                     <img src={process.env.PUBLIC_URL + '/images/wish.svg'} alt="wishlist"/>
@@ -63,18 +60,18 @@ const ProductCard = (props) => {
                             </div>
                             <div className='action-bar position-absolute'>
                                 <div className='d-flex flex-column gap-15'>
-                                    <Link>
-                                        <img src={process.env.PUBLIC_URL + '/images/prodcompare.svg'} alt="compare"/>
-                                    </Link>
-                                    <Link>
-                                        <img src={process.env.PUBLIC_URL + '/images/view.svg'} alt="view"/>
-                                    </Link>
-                                    <Link>
-                                        <img src={process.env.PUBLIC_URL + '/images/add-cart.svg'} alt="addCart"/>
-                                    </Link>
+                                <button className='border-0 bg-transparent'>
+                                    <img src={process.env.PUBLIC_URL + '/images/prodcompare.svg'} alt="compare"/>
+                                </button>
+                                <Link to={'/product/'+item?._id} className='border-0 bg-transparent'>
+                                    <img onClick={()=>navigate('/product/'+item?._id)} src={process.env.PUBLIC_URL + '/images/view.svg'} alt="view"/>
+                                </Link>
+                                <button className='border-0 bg-transparent'>
+                                    <img src={process.env.PUBLIC_URL + '/images/add-cart.svg'} alt="addCart"/>
+                                </button>
                                 </div>
                             </div>        
-                        </Link>
+                        </div>
                     </div>
                 )
             })
