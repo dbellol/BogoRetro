@@ -1,16 +1,28 @@
-import React from 'react'
+import {React, useEffect} from 'react'
 import ReactStars from 'react-rating-stars-component';
 import { Link, useLocation } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { addToWishlist } from '../features/products/productSlice';
+import { getUserProductWishlist } from '../features/user/userSlice';
 const ProductCard = (props) => {
     const{grid, data}=props;
     const dispatch = useDispatch();
     console.log(data);
     let location  = useLocation();
-    const addToWish=(id)=>{
-        dispatch(addToWishlist(id));
-    }
+    const wishlistUpdateStatus = useSelector((state) => state.product.wishlistUpdateStatus);
+    // En ProductCard.js
+    const addToWish = (id) => {
+        dispatch(addToWishlist(id)).then(() => {
+            dispatch(getUserProductWishlist());
+        });
+    };
+
+    useEffect(() => {
+        if (wishlistUpdateStatus === 'success') {
+            dispatch(getUserProductWishlist());
+        }
+    }, [wishlistUpdateStatus, dispatch]);
+
   return (
     <>
         {
@@ -23,7 +35,7 @@ const ProductCard = (props) => {
                             ?"/product/:id"
                             :":id"}`} */className='product-card position-relative'>
                             <div className='wishlist-icon position-absolute'>
-                                <button className='border-0 bg-transparent' onClick={()=>{addToWish(item?._id)}}>
+                                <button className='border-0 bg-transparent' onClick={()=>{addToWish(item?._id)}} >                           
                                     <img src={process.env.PUBLIC_URL + '/images/wish.svg'} alt="wishlist"/>
                                 </button>
                             </div>

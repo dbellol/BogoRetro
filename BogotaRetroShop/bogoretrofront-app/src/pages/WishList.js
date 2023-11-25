@@ -16,7 +16,12 @@ function WishList() {
     })
     const userState = useSelector((state) => state.user);
     const wishlistState = userState?.wishlist?.wishlist || userState?.wishlist;
-
+    const removeFromWishlist = (id)=>{
+        dispatch(addToWishlist(id));
+        setTimeout(()=>{
+            dispatch(getUserProductWishlist());
+        }, 300)
+    }
   return (
     <>
         <Meta title={"Lista de deseos"}></Meta>
@@ -29,7 +34,7 @@ function WishList() {
                         return (
                             <div className='col-3' key={index}>
                                 <div className='wishlist-card position-relative bg-white'>
-                                    <img /*onClick={()=>{removeFromWishlist(item?._id)}}*/ src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
+                                    <img onClick={()=>{removeFromWishlist(item?._id)}} src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
                                     <div className='wishlist-card-image bg-white'>
                                         <img src={item?.image?.[0]?.url} className='img-fluid w-100' style={{ width: '400px', height: '400px', objectFit: '' }} alt="watch"/>
                                     </div>

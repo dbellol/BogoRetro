@@ -19,7 +19,8 @@ const productState={
     isError:false,
     isSuccess:false,
     isLoading:false,
-    message:""
+    message:"",
+    wishlistUpdateStatus: 'idle',
 }
 
 export const productSlice=createSlice({
@@ -46,6 +47,7 @@ export const productSlice=createSlice({
             state.isError=false;
             state.isSuccess=true;
             state.addToWishlist=action.payload;
+            state.wishlistUpdateStatus = 'success';
             state.message='Producto añadido a la wishlist'
         }).addCase(addToWishlist.rejected, (state, action)=>{
             state.isLoading=false;
