@@ -81,6 +81,7 @@ const loginAdmin=asyncHandler(async(req,res)=>{
             lastname: findAdmin?.lastname,
             email: findAdmin?.email,
             mobile: findAdmin?.mobile,
+            wishlist: findUser?.wishlist, 
             token: generateToken(findAdmin?._id),
         });
     }else{

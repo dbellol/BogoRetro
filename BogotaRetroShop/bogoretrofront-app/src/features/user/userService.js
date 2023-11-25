@@ -16,12 +16,12 @@ const login=async(userData)=>{
         return response.data;
     }
 }
-/*const getUserWishlist = async()=>{
+const getUserWishlist = async()=>{
     const response = await axios.get(`${base_url}user/wishlist`, getConfig());
     if(response.data){
         return response.data;
     }
-}*/
+}
 export const userService={
-    register, login, /*getUserWishlist,*/
+    register, login, getUserWishlist,
 };

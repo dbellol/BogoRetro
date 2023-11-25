@@ -26,7 +26,7 @@ router.put("/getorderbyuser/:id", authMiddleware, isAdmin, getOrderByUserId);
 
 router.get("/refresh",handleRefreshToken);
 router.get("/logout",logout);
-router.get("/wishlist", authMiddleware, isAdmin, getWishList);
+router.get("/wishlist", authMiddleware, getWishList);
 router.get("/car2", authMiddleware, isAdmin, getUserCar);
 
 router.get("/:id", authMiddleware, getsUser);

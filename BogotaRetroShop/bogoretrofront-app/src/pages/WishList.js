@@ -4,17 +4,19 @@ import Meta from '../components/Meta';
 import Container from '../components/Container'
 import {useDispatch, useSelector} from 'react-redux';
 import { getUserProductWishlist } from '../features/user/userSlice';
+import { addToWishlist } from '../features/products/productSlice';
 
 function WishList() {
-    /*const dispatch = useDispatch();
+    const dispatch = useDispatch();
     useEffect(()=>{
         getWishlistFromDb() ;
     },[]);
     const getWishlistFromDb=(()=>{
         dispatch(getUserProductWishlist()) ;
     })
-    const wishlistState=useSelector((state)=>state.auth.wishlist.wishlist);
-    console.log(wishlistState)*/
+    const userState = useSelector((state) => state.user);
+    const wishlistState = userState?.wishlist?.wishlist || userState?.wishlist;
+
   return (
     <>
         <Meta title={"Lista de deseos"}></Meta>
@@ -22,45 +24,27 @@ function WishList() {
         </BreadCrumb>
         <Container class1='wishlist-wrapper home-wrapper-2 py-5'>
             <div className='row'>
-                <div className='col-3'>
-                    <div className='wishlist-card position-relative'>
-                        <img src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
-                        <div className='wishlist-card-image'>
-                        <img src={process.env.PUBLIC_URL + '/images/watch.jpg'} className='img-fluid w-100' alt="watch"/>
-                        </div>
-                        <div className='py-3 px-3'>
-                            <h5 className='title'>Apple Smartwatch 2da generación</h5>
-                            <h6 className='price'>$30.000</h6>
-                        </div>
+                {
+                      Array.isArray(wishlistState) && wishlistState.map((item,index)=>{
+                        return (
+                            <div className='col-3' key={index}>
+                                <div className='wishlist-card position-relative bg-white'>
+                                    <img /*onClick={()=>{removeFromWishlist(item?._id)}}*/ src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
+                                    <div className='wishlist-card-image bg-white'>
+                                        <img src={item?.image?.[0]?.url} className='img-fluid w-100' style={{ width: '400px', height: '400px', objectFit: '' }} alt="watch"/>
+                                    </div>
+                                    <div className='py-3 px-3'>
+                                        <h5 className='title'>{item?.title}</h5>
+                                        <h6 className='price'>${item?.price}</h6>
+                                    </div>
                         
-                    </div>
-                </div>
-                <div className='col-3'>
-                    <div className='wishlist-card position-relative'>
-                        <img src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
-                        <div className='wishlist-card-image'>
-                        <img src={process.env.PUBLIC_URL + '/images/watch.jpg'} className='img-fluid w-100' alt="watch"/>
-                        </div>
-                        <div className='py-3 px-3'>
-                            <h5 className='title'>Apple Smartwatch 2da generación</h5>
-                            <h6 className='price'>$30.000</h6>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div className='col-3'>
-                    <div className='wishlist-card position-relative'>
-                        <img src={process.env.PUBLIC_URL + '/images/cross.svg'} className='position-absolute cross img-fluid' alt="cross"/>
-                        <div className='wishlist-card-image'>
-                        <img src={process.env.PUBLIC_URL + '/images/watch.jpg'} className='img-fluid w-100' alt="watch"/>
-                        </div>
-                        <div className='py-3 px-3'>
-                            <h5 className='title'>Apple Smartwatch 2da generación</h5>
-                            <h6 className='price'>$30.000</h6>
-                        </div>
-                        
-                    </div>
-                </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                
+                
             </div>
         </Container>
     </>

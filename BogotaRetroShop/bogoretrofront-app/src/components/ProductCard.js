@@ -28,7 +28,7 @@ const ProductCard = (props) => {
                                 </button>
                             </div>
                             {item?.image && item.image.length > 0 && (
-                                <img src={item.image[0].url} className='img-fluid d-block mx-auto' alt="productimage"  style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+                                <img src={item.image[0].url} className='img-fluid d-block mx-auto' alt="productimage"  style={{ width: '200px', height: '200px', objectFit: 'contain' }}
                                 />
                             )}
                             <div className='product-details'>
