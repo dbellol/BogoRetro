@@ -12,7 +12,7 @@ const Home = () => {
         <div className='row'>
           <div className='col-6'>
             <div className='d-flex flex-wrap gap-10 justify-content-between align-items-center'>
-              <div className='main-banner position-realtive'>
+              <div className='main-banner position-relative'>
                 <img src={process.env.PUBLIC_URL + '/images/main-banner-1.jpg'} className='img-fluid rounded-3' alt="main banner"/>
                 <div className='main-banner-content position-absolute'>
                   <h4> SÚPER AUDÍFONOS A LA MANO</h4>
@@ -26,7 +26,7 @@ const Home = () => {
             <div className='col-6'>
               <div className='d-flex flex-wrap gap-10 justify-content-between align-items-center'>
                 <div className='small-banner position-relative'>
-                  <img src={process.env.PUBLIC_URL + '/images/catbanner-01.jpg'} className='img-fluid rounded-3' alt="main banner"/>
+                  <img src={process.env.PUBLIC_URL + '/images/catbanner-01.jpg'} className='img-fluid rounded-3' alt="small banner"/>
                   <div className='small-banner-content position-absolute'>
                     <h4>MÁS VENDIDOS</h4>
                     <h5> Laptops Macintosh</h5>

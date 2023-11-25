@@ -65,7 +65,7 @@ const Footer = () => {
             <div className='col-3'>
               <h4 className='text-white mb-4'>Cuenta</h4>
               <div className='footer-link d-flex flex-column'>
-                <Link className='text-white py-2 mb-1'>Acerca de nosotros</Link>
+                <Link to='/about'className='text-white py-2 mb-1'>Acerca de nosotros</Link>
                 <Link className='text-white py-2 mb-1'>Preguntas frecuentes</Link>
                 <Link to ='/contact' className='text-white py-2 mb-1'>Contacto</Link>
               </div>

@@ -1,29 +1,35 @@
 import React from 'react'
-import ReactStars from 'react-rating-stars-component'
-import { Link, useLocation } from 'react-router-dom'
+import ReactStars from 'react-rating-stars-component';
+import { Link, useLocation } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import { addToWishlist } from '../features/products/productSlice';
 const ProductCard = (props) => {
     const{grid, data}=props;
+    const dispatch = useDispatch();
     console.log(data);
     let location  = useLocation();
-
+    const addToWish=(id)=>{
+        dispatch(addToWishlist(id));
+    }
   return (
     <>
         {
-            data && Array.isArray(data) && data?.map((item, index)=>{
+            data?.map((item, index)=>{
                 return(
                     <div key={index} className={`${location.pathname==="/product"? `gr-${grid}`:'col-3'}`}>
-                        <Link to={`${location.pathname==='/'
+                        <Link /*to={`${location.pathname==='/'
                             ?"/product/:id"
                             :location.pathname==="/product/:id"
                             ?"/product/:id"
-                            :":id"}`} className='product-card position-relative'>
+                            :":id"}`} */className='product-card position-relative'>
                             <div className='wishlist-icon position-absolute'>
-                                <button className='border-0 bg-transparent'>
+                                <button className='border-0 bg-transparent' onClick={()=>{addToWish(item?._id)}}>
                                     <img src={process.env.PUBLIC_URL + '/images/wish.svg'} alt="wishlist"/>
                                 </button>
                             </div>
                             {item?.image && item.image.length > 0 && (
-                                <img src={item.image[0].url} className='img-fluid rounded-3  w-100' alt="productimage"/>
+                                <img src={item.image[0].url} className='img-fluid d-block mx-auto' alt="productimage"  style={{ width: '200px', height: '200px', objectFit: 'cover' }}
+                                />
                             )}
                             <div className='product-details'>
                                 <h6 className='brand'>{item?.brand}</h6>

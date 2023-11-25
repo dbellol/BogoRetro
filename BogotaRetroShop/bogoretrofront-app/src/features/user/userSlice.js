@@ -1,29 +1,44 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { authService } from './userService';
+import { userService } from './userService';
 import {toast} from 'react-toastify';
+
 export const registerUser = createAsyncThunk('auth/register', async(userData, thunkAPI)=>{
     try{
-        return await authService.register(userData);
+        return await userService.register(userData);
     }catch(error){
         return thunkAPI.rejectWithValue(error);
     }
 });
-export const loginUser = createAsyncThunk('auth/login', async(userData, thunkAPI)=>{
+export const loginUser = createAsyncThunk('auth/login', async(userData, thunkAPI) => {
+    try {
+        return await userService.login(userData);
+    } catch (error) {
+        const errorInfo = {
+            message: error.message,
+            // Incluye cualquier otra propiedad del error que necesites
+        };
+        return thunkAPI.rejectWithValue(errorInfo);
+    }
+});
+export const getUserProductWishlist = createAsyncThunk('user/wishlist', async( thunkAPI)=>{
     try{
-        return await authService.login(userData);
+        return await userService.getUserWishlist();
     }catch(error){
         return thunkAPI.rejectWithValue(error);
     }
 });
+const getCustomerfromLocalStorage = localStorage.getItem('customer')
+    ? JSON.parse(localStorage.getItem('customer')):
+    null;
 const initialState={
-    user:"",
+    user:getCustomerfromLocalStorage,
     isError:false,
     isSuccess:false,
     isLoading:false,
     message:""
 }
 
-export const authSlice=createSlice({
+export const userSlice=createSlice({
     name:'auth',
     initialState:initialState,
     reducers:{},
@@ -54,7 +69,7 @@ export const authSlice=createSlice({
             state.isSuccess=true;
             state.user=action.payload;
             if(state.isSuccess===true){
-                localStorage.setItem('token',action.payload.token);
+                localStorage.setItem('token', action.payload.token);
                 toast.info("Usuario logueado exitosamente");
             }
         }).addCase(loginUser.rejected, (state, action)=>{
@@ -65,9 +80,21 @@ export const authSlice=createSlice({
             if(state.isError===true){
                 toast.error(action.error);
             }
+        }).addCase(getUserProductWishlist.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getUserProductWishlist.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.wishlist=action.payload;
+        }).addCase(getUserProductWishlist.rejected, (state, action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
         });
     }
 
 })
 
-export default authSlice.reducer;
+export default userSlice.reducer;

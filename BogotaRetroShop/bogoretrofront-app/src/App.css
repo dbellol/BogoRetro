@@ -27,9 +27,12 @@ a{
   border-bottom: 1px solid var(--color-000000);
   background-color: var(--color-000000);
 }
+.logocont{
+  justify-content: start !important;
+}
 .logo{
-  width: 100px;    /* Cambia este valor según tus necesidades */
-  height: 40 px;  
+  width: 90px;    /* Cambia este valor según tus necesidades */
+  height: 50px;  
   background-color: var(--color-000000);
   /* Mantiene el aspecto de la imagen */
 }
@@ -130,8 +133,9 @@ footer .input-group-text{
 /*Termina el footer*/
 /*Home page*/
 .main-banner-content{
-  top:40%;
-  left:15%;
+  top:10%;
+  left:10%;
+  position: absolute !important;
 }
 .main-banner-content h4{
   font-size: 14px;
@@ -186,6 +190,7 @@ footer .input-group-text{
 .small-banner{
   width: 49%
 }
+
 /*Homewrapper 2*/
 .home-wrapper-2{
   background-color: var(--color-f5f5f7);
@@ -674,4 +679,127 @@ footer .input-group-text{
 .total-price{
   font-size: 16px;
   color: var(--color-777777);
+}
+.section-whit{
+  background: #ffff;
+  padding: 70px 0;
+}
+.team-items{
+  background: #f4f5f6;
+  text-align: center;
+  margin: 20px 0 !important;
+  padding: 50px 20px 40px 20px !important;
+  border-radius: 8px 8px !important;
+  -webkit-transition: all 0.25s ease-in-out !important;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  max-width:400px ;
+}
+.team-items{
+  height: 550px;
+}
+.team-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center; /* Centra el contenido horizontalmente */
+  background: #f4f5f6;
+  text-align: center;
+  margin: 20px 0 !important;
+  padding: 50px 20px 40px 20px !important;
+  border-radius: 8px 8px !important;
+  transition: all 0.25s ease-in-out !important;
+  height: 520px;
+}
+.team-items p{
+  font-size:14px
+}
+
+.team-items:hover{
+  background:#3C7355;
+  color: white;
+}
+.team-item:hover{
+  background:#3C7355;
+  color: white;
+}
+.team-item{
+  margin: 20px 0 1px 0 !important;
+  color:#454545;
+  font-size: 18px;
+  font-weight: 700;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out !important;
+ 
+}
+.section-subtitle{
+  white-space: pre-line;
+}
+.team-item:hover h3{
+  color:#ffffff;
+}
+.team-item:hover p{
+  color:#ffffff;
+}
+.team-items:hover p{
+  color:#ffffff;
+}
+.team-items:hover h3{
+  color:#ffffff;
+}
+.team-info{
+  display: block;
+  margin-bottom:0;
+}
+.team-info p{
+  color: #141313;
+  font-size: italic;
+}
+.team-info1 p{
+  color: #777777;
+  font-size: italic;
+}
+.team-img{
+  width: 160px;
+  padding: 6px 6px;
+  -webkit-border-radius:70%;
+  -moz-border-radius:70%; 
+  border-radius: 70%;
+}
+ul.team-icon{
+  margin-top:25px;
+}
+ul.team-icon li{
+  display: inline-block;
+  margin: 0 3px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+ul.team-icon li a{
+  display: inline-block;
+  margin: 0 3px;
+  padding: 8px 8px;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  line-height: 18px;
+}
+.github {
+  color: #3C7355; /* Este es un ejemplo de un código de color hexadecimal verde */
+}
+
+.linkedin {
+  color: #3C7355; /* Asegúrate de usar el mismo color en ambos si quieres que coincidan */
+}
+.github:hover{
+  color:white;
+}
+.team-item:hover .github, 
+.team-item:hover .linkedin {
+  color: white;
 }

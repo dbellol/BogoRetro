@@ -15,10 +15,10 @@ const authMiddleware=asyncHandler(async(req,res,next) =>{
             }
 
         }catch (error){
-            throw new Error('El token ha expirado, por favor entre de nuevo');
+            res.status(401).json({ message: 'El token ha expirado, por favor entre de nuevo' });
         }
     }else{
-        throw new Error("No hay un token");
+        res.status(401).json({ message: "No hay un token" });    
     }
 })
 /*Validar el rol del usuario*/

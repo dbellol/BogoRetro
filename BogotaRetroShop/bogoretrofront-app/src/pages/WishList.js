@@ -1,9 +1,20 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react';
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import Container from '../components/Container'
+import {useDispatch, useSelector} from 'react-redux';
+import { getUserProductWishlist } from '../features/user/userSlice';
 
 function WishList() {
+    /*const dispatch = useDispatch();
+    useEffect(()=>{
+        getWishlistFromDb() ;
+    },[]);
+    const getWishlistFromDb=(()=>{
+        dispatch(getUserProductWishlist()) ;
+    })
+    const wishlistState=useSelector((state)=>state.auth.wishlist.wishlist);
+    console.log(wishlistState)*/
   return (
     <>
         <Meta title={"Lista de deseos"}></Meta>
