@@ -345,6 +345,19 @@ const removeProductFromCart = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 })
+const updateProductQuantityFromCart =  asyncHandler(async(req,res)=>{
+    const {_id} = req.user;
+    const { cartItemId, newQuantity } = req.params;
+    validateMongoId(_id);
+    try{
+        const cartItem = await Car.findOne({userId:_id,_id:cartItemId})
+        cartItem.quantity=newQuantity;
+        cartItem.save();
+        res.json(cartItem);
+    }catch(error){
+        throw new Error(error);
+    }
+})
 /*Vaciar carrito de compras*/
 const emptyCar=asyncHandler(async(req, res)=>{
     const{_id}=req.user;
@@ -491,4 +504,5 @@ module.exports={createUser,
     getAllOrders,
     getOrderByUserId,
     removeProductFromCart,
+    updateProductQuantityFromCart,
 };

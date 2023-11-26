@@ -1,5 +1,5 @@
 const express=require('express');
-const {createUser, loginUserCtrl, getaUser, getsUser, deletesUser, updatedaUser, blockUser, unblockUser, handleRefreshToken, logout, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishList, saveAdress, userCar, getUserCar, emptyCar, applyCoupon, createOrder, getOrders, updateOrders, getAllOrders, getOrderByUserId, removeProductFromCart}=require("../controller/userCtrl");
+const {createUser, loginUserCtrl, getaUser, getsUser, deletesUser, updatedaUser, blockUser, unblockUser, handleRefreshToken, logout, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishList, saveAdress, userCar, getUserCar, emptyCar, applyCoupon, createOrder, getOrders, updateOrders, getAllOrders, getOrderByUserId, removeProductFromCart, updateProductQuantityFromCart}=require("../controller/userCtrl");
 const router=express.Router();
 const {authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 router.post("/register", createUser);
@@ -32,6 +32,8 @@ router.get("/car", authMiddleware, isAdmin, getUserCar);
 router.get("/:id", authMiddleware, getsUser);
 router.delete("/empty-car", authMiddleware, emptyCar);
 router.delete("/delete-product-car/:cartItemId", authMiddleware, removeProductFromCart);
+router.delete("/update-product-car/:cartItemId/:newQuantity", authMiddleware, updateProductQuantityFromCart);
+
 
 
 router.delete("/:id", deletesUser);

@@ -48,6 +48,13 @@ export const deleteCartProduct = createAsyncThunk('user/car/product/delete', asy
         return thunkAPI.rejectWithValue(error);
     }
 });
+export const updateCartProduct = createAsyncThunk('user/car/product/update', async(cartDetail, thunkAPI) => {
+    try {
+        return await userService.updateProductFromCart(cartDetail);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
+});
 const getCustomerfromLocalStorage = localStorage.getItem('customer')
     ? JSON.parse(localStorage.getItem('customer')):
     null;
@@ -160,8 +167,26 @@ export const userSlice=createSlice({
             state.isError=true;
             state.isSuccess=false;
             state.message=action.error;
-            if(state.isSuccess==false){
+            if(state.isSuccess===false){
                 toast.error('Algo salió mal y el producto no fue eliminado del carrito de forma exitosa')
+            }
+        }).addCase(updateCartProduct.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(updateCartProduct.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.updatedCartProduct=action.payload;
+            if(state.isSuccess){
+                toast.success('Producto modificado desde el carrito de forma exitosa')
+            }
+        }).addCase(updateCartProduct.rejected, (state, action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+            if(state.isSuccess===false){
+                toast.error('Algo salió mal y el producto no fue modificado desde el carrito de forma exitosa')
             }
         });
     }

@@ -1,22 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import Container from '../components/Container'
 import {AiFillDelete} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCartProduct, getUserCart } from '../features/user/userSlice';
+import { deleteCartProduct, getUserCart, updateCartProduct } from '../features/user/userSlice';
 const Cart=()=> {
   const dispatch=useDispatch();
+  const [productUpdateDetail,setproductUpdateDetail]=useState(null)
   const userCarState=useSelector(state=>state.user.cartProducts);
   useEffect(()=>{
     dispatch(getUserCart())
   },[])
+  useEffect(()=>{
+    if(productUpdateDetail !== null){
+      dispatch(updateCartProduct({cartItemId:productUpdateDetail?.cartItemId, quantity:productUpdateDetail?.quantity}));
+    setTimeout(()=>{
+      dispatch(getUserCart())
+    },300)  
+    }
+  }, [productUpdateDetail])
+  
   const deleteACartProduct = (id) => {
-
     dispatch(deleteCartProduct(id));
-}
-
+    setTimeout(()=>{
+      dispatch(getUserCart())
+    },300)
+  }
+ 
   return (
     <>
         <Meta title={"Carrito de compras"}></Meta>
@@ -51,12 +63,12 @@ const Cart=()=> {
                         </div>
                       </div>
                       <div className='cart-col-2'>
-                        <h5 className='price'>${item?.productId.price}</h5>
+                        <h5 className='price'>${item?.price}</h5>
                       </div>
                       
                       <div className='cart-col-3 d-flex align-items-center gap-15'>
                         <div>
-                          <input className='form-control' type='number' name='' id='' min={1} max={10} value={item?.quantity}/>
+                          <input className='form-control' type='number' name='' id='' min={1} max={10} value={productUpdateDetail?.quantity ? productUpdateDetail?.quantity : item?.quantity} onChange={(e)=>{setproductUpdateDetail({cartItemId:item?._id, quantity:e.target.value})}}/>
                         </div>
                         <div>
                           <AiFillDelete onClick={() => {deleteACartProduct(item?._id)}} className='text-danger'>
@@ -66,7 +78,7 @@ const Cart=()=> {
       
                       </div>
                       <div className='cart-col-4'> 
-                        <h5 className='price'>${item?.productId.price * item?.productId.quantity}</h5>
+                        <h5 className='price'>${item?.price * item?.quantity}</h5>
       
                       </div>
                     </div>

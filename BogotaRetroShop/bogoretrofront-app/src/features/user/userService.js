@@ -56,7 +56,19 @@ const removeProductFromCart = async (cartItemId) => {
         return response.data;
     }
 }
+const updateProductFromCart = async (cartDetail) => {
+    const config = getConfig();
+    console.log("Configuración de Axios:", config);
+    console.log("ID del producto a eliminar:", cartDetail);
+    const response = await axios.delete(`${base_url}user/update-product-car/${cartDetail.cartItemId}/${cartDetail.quantity}`, config);
+    if (response.data) {
+        localStorage.setItem('customer', JSON.stringify(response.data));
+        return response.data;
+    }
+}
+
+
 
 export const userService={
-    register, login, getUserWishlist, addToCar, getCar,removeProductFromCart,
+    register, login, getUserWishlist, addToCar, getCar,removeProductFromCart,updateProductFromCart,
 };
