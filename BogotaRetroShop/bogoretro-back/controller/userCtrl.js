@@ -305,34 +305,17 @@ const getWishList = asyncHandler(async(req,res)=>{
 });
 /*ver Carrito de compras por usuario*/
 const userCar = asyncHandler(async(req,res)=>{
-    const {car}=req.body;
+    const {productId,color,quantity,price}=req.body;
     const {_id}=req.user;
     validateMongoId(_id);
     try{
-        let products=[];
-        const user = await User.findById(_id);
-        //check si el usuario tiene un producto en el carro
-        const alreadyExistCar = await Car.findOne({ orderby: user._id });
-        if(alreadyExistCar){
-            await Car.deleteOne({ _id: alreadyExistCar._id });
-        }
-        for(let i=0; i<car.length; i++){
-            let object ={};
-            object.product = car[i]._id;
-            object.count = car[i].count;
-            object.color = car[i].color;
-            let getPrice = await Product.findById(car[i]._id).select("price").exec();
-            object.price = getPrice.price;
-            products.push(object);
-        };
-        let carTotal=0;
-        for (let i = 0; i<products.length;i++){
-            carTotal = carTotal+products[i].price*products[i].count;
-        }
+        
         let newCar = await new Car({
-            products, 
-            carTotal, 
-            orderby: user?._id,
+            userId:_id, 
+            productId, 
+            color,
+            price,
+            quantity,
         }).save();
         res.json(newCar);
     }catch (error){
@@ -344,12 +327,24 @@ const getUserCar = asyncHandler(async(req,res)=>{
     const{_id}=req.user;
     validateMongoId(_id)
     try{
-        const car = await Car.findOne({orderby:_id}).populate("products.product");
+        const car = await Car.find({userId:_id}).populate("productId").populate('color');
         res.json(car);
     }catch (error){
         throw new Error(error);
     }
 });
+/*Eliminar un producto del carrito*/
+const removeProductFromCart = asyncHandler(async(req,res)=>{
+    const {_id} = req.user;
+    const { cartItemId } = req.params;
+    validateMongoId(_id);
+    try{
+        const deleteProductFromCart = await Car.deleteOne({userId:_id,_id:cartItemId})
+        res.json(deleteProductFromCart);
+    }catch(error){
+        throw new Error(error);
+    }
+})
 /*Vaciar carrito de compras*/
 const emptyCar=asyncHandler(async(req, res)=>{
     const{_id}=req.user;
@@ -495,4 +490,5 @@ module.exports={createUser,
     updateOrders,
     getAllOrders,
     getOrderByUserId,
+    removeProductFromCart,
 };

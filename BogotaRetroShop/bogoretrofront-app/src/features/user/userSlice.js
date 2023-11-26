@@ -27,6 +27,27 @@ export const getUserProductWishlist = createAsyncThunk('user/wishlist', async( t
         return thunkAPI.rejectWithValue(error);
     }
 });
+export const addProdToCart = createAsyncThunk('user/car/add', async( carData, thunkAPI)=>{
+    try{
+        return await userService.addToCar(carData);
+    }catch(error){
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+export const getUserCart = createAsyncThunk('user/car/get', async( carData, thunkAPI)=>{
+    try{
+        return await userService.getCar();
+    }catch(error){
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+export const deleteCartProduct = createAsyncThunk('user/car/product/delete', async(cartItemId, thunkAPI) => {
+    try {
+        return await userService.removeProductFromCart(cartItemId);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
+});
 const getCustomerfromLocalStorage = localStorage.getItem('customer')
     ? JSON.parse(localStorage.getItem('customer')):
     null;
@@ -35,13 +56,17 @@ const initialState={
     isError:false,
     isSuccess:false,
     isLoading:false,
-    message:""
+    message:"",
+    productUpdateStatus: 'idle',
 }
 
 export const userSlice=createSlice({
     name:'user',
     initialState:initialState,
-    reducers:{},
+    reducers:{
+        clearCartState: (state) => {
+        state.cartUpdateStatus = 'idle';
+    },},
     extraReducers:(builder)=>{
         builder.addCase(registerUser.pending,(state)=>{
             state.isLoading=true;
@@ -70,7 +95,6 @@ export const userSlice=createSlice({
             state.user=action.payload;
             if(state.isSuccess===true){
                 localStorage.setItem('token', action.payload.token);
-                toast.info("Usuario logueado exitosamente");
             }
         }).addCase(loginUser.rejected, (state, action)=>{
             state.isLoading=false;
@@ -92,6 +116,53 @@ export const userSlice=createSlice({
             state.isError=true;
             state.isSuccess=false;
             state.message=action.error;
+        }).addCase(addProdToCart.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(addProdToCart.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.cartProduct=action.payload;
+            state.cartUpdateStatus = 'success';
+            if(state.isSuccess){
+                toast.success('Producto añadido al carrito')
+            }
+        }).addCase(addProdToCart.rejected, (state, action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.cartUpdateStatus = 'failed';
+            state.message=action.error;
+        }).addCase(getUserCart.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getUserCart.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.cartProducts=action.payload;
+        }).addCase(getUserCart.rejected, (state, action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+        }).addCase(deleteCartProduct.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(deleteCartProduct.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.deletedCartProduct=action.payload;
+            if(state.isSuccess){
+                toast.success('Producto eliminado del carrito de forma exitosa')
+            }
+        }).addCase(deleteCartProduct.rejected, (state, action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+            if(state.isSuccess==false){
+                toast.error('Algo salió mal y el producto no fue eliminado del carrito de forma exitosa')
+            }
         });
     }
 

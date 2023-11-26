@@ -36,7 +36,7 @@ var userSchema = new mongoose.Schema({
         type: Boolean,
         default:false,
     },
-    cart:{
+    car:{
         type: Array,
         default:[],
     },

@@ -2,8 +2,7 @@
 export const base_url = "http://localhost:5000/api/"; // Asegúrate de que la URL base esté correcta
 
 export const getConfig = () => {
-    const tokenData = localStorage.getItem('customer');
-    const token = tokenData ? JSON.parse(tokenData).token : "";
+    const token = localStorage.getItem('token'); // Asegúrate de que esta clave sea correcta
     return {
         headers: {
             Authorization: `Bearer ${token}`,

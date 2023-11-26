@@ -9,25 +9,77 @@ import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
 import Container from "../components/Container";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAProduct } from "../features/products/productSlice";
+import LoadingComponent from "../components/LoadingComponent";
+import {toast} from 'react-toastify';
+import { addProdToCart } from "../features/user/userSlice";
 
 const SingleProduct = () => {
-  const location = useLocation();
-  const getProductId = location.pathname.split("/")[2];
-  const dispatch = useDispatch();
-  const productState = useSelector((state) => state?.product?.singleproduct);
-  console.log(productState);
-  useEffect(() => {
-    dispatch(getAProduct(getProductId));
-  }, []);
+  const [color, setColor] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [alreadyAdded, setAlreadyAdded] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const getProductId = location.pathname.split("/")[2];
+    const dispatch = useDispatch();
+    const productState = useSelector((state) => state.product?.singleproduct);
+    const cartUpdateStatus = useSelector((state) => state.user.cartUpdateStatus);
+    const carState=useSelector(state=>state.user.cartProducts);
+
+    useEffect(() => {
+        dispatch(getAProduct(getProductId));
+    }, [dispatch, getProductId]);
+    useEffect(()=>{
+      for(let index=0; index<carState.length; index++){
+        if(getProductId === carState[index]?.productId?._id){
+          setAlreadyAdded(true)
+        }
+      }
+    })
+    useEffect(() => {
+        if (cartUpdateStatus === 'success') {
+            toast.success('Producto añadido al carrito exitosamente');
+            // Aquí puedes agregar más lógica si es necesario, como redirigir al usuario, etc.
+        }
+
+        if (cartUpdateStatus === 'failed') {
+            toast.error('Error al añadir producto al carrito');
+            // Manejo de errores
+        }
+    }, [cartUpdateStatus]);
+
+    const uploadCart = () => {
+        if (color === null) {
+            toast.error('Por favor elige el color');
+            return;
+        }
+
+        const productData = {
+            productId: productState?._id,
+            quantity,
+            color,
+            price: productState?.price
+        };
+
+        dispatch(addProdToCart(productData))
+            .then(() => {
+                navigate('/cart')
+            })
+            .catch((error) => {
+                // Manejar el error
+                console.error('Error al añadir al carrito:', error);
+            });
+    };
   const props = {
     width: 400,
     height: 600,
     zoomWidth: 600,
-    img: productState?.image[0].url ? productState?.image[0].url : "img",
+    img: productState?.image[0].url
+      ? productState?.image[0].url
+      : "https://i.pinimg.com/564x/a5/70/d5/a570d512384be08b3c0ab60503d594ee.jpg",
   };
   const [orderedProduct, setorderedProduct] = useState(true);
   const copyToClipboard = (text) => {
@@ -49,10 +101,13 @@ const SingleProduct = () => {
             <div className="col-6">
               <div className="main-product-image">
                 <div>
-                  <ReactImageZoom {...props} />
+                  {productState?.image[0]?.url ? (
+                    <ReactImageZoom {...props} />
+                  ) : (
+                    <LoadingComponent /> // Aquí usas tu componente de carga
+                  )}
                 </div>
               </div>
-              
             </div>
             <div className="col-6">
               <div className="main-product-details">
@@ -113,26 +168,42 @@ const SingleProduct = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="d-flex flex-column mt-2 mb-3">
-                    <h3 className="product-heading">Color:</h3>
-                    <Color></Color>
-                  </div>
-                  <div className="d-flex gap-10 align-items-center gap-15 flex-row mt-2 mb-3">
-                    <h3 className="product-heading">Cantidad:</h3>
-                    <div className="">
-                      <input
-                        type="number"
-                        name=""
-                        min={1}
-                        max={10}
-                        style={{ width: "70px" }}
-                        className="form-control"
-                        id=""
-                      ></input>
+                  {
+                    alreadyAdded===false && <>
+                    <div className="d-flex flex-column mt-2 mb-3">
+                      <h3 className="product-heading">Color:</h3>
+                      <Color setColor={setColor} colorData={productState?.color}></Color>
                     </div>
-                    <div className="d-flex align-items-center gap-30 ms-5">
-                      <button className="button signup border-0" type="submit">
-                        Añadir al carrito
+                    </> 
+                  }
+                  <div className="d-flex gap-10 align-items-center gap-15 flex-row mt-2 mb-3">
+                    {
+                      alreadyAdded===false && <>
+                        <h3 className="product-heading">Cantidad:</h3>
+                      <div className="">
+                        <input
+                          type="number"
+                          name=""
+                          min={1}
+                          max={10}
+                          style={{ width: "70px" }}
+                          className="form-control"
+                          id=""
+                          onChange={(e)=>setQuantity(e.target.value)}
+                          value={quantity}
+                        ></input>
+                      </div>
+                      </>
+                    }
+                    <div className={alreadyAdded?"ms-0":"ms-5"+"d-flex align-items-center gap-30 ms-5"}>
+                      <button
+                        className="button border-0"
+                        /*data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"*/
+                        type="button"
+                        onClick={()=>{alreadyAdded?navigate('/cart'):uploadCart()}}
+                      >
+                        {alreadyAdded?"Ir al carrito":'Añadir al carrito'}
                       </button>
                       <button className="button signup" type="submit">
                         Comprar ahora
