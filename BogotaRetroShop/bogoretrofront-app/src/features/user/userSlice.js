@@ -101,6 +101,7 @@ export const userSlice=createSlice({
             state.isSuccess=true;
             state.user=action.payload;
             if(state.isSuccess===true){
+                toast.success('Inicio sesión correctamente')
                 localStorage.setItem('token', action.payload.token);
             }
         }).addCase(loginUser.rejected, (state, action)=>{
@@ -131,9 +132,7 @@ export const userSlice=createSlice({
             state.isSuccess=true;
             state.cartProduct=action.payload;
             state.cartUpdateStatus = 'success';
-            if(state.isSuccess){
-                toast.success('Producto añadido al carrito')
-            }
+            
         }).addCase(addProdToCart.rejected, (state, action)=>{
             state.isLoading=false;
             state.isError=true;

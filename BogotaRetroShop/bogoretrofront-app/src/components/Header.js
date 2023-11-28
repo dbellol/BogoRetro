@@ -6,7 +6,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const cartState = useSelector(state=>state?.user?.cartProducts)
   const[total, setTotal] = useState(null)
-
+  const authState=useSelector(state=>state?.user)
   useEffect(()=>{
     let sum=0
     for (let index = 0; index < cartState?.length; index++) {
@@ -127,11 +127,17 @@ const Header = () => {
                     <img
                       className="login"
                       src={process.env.PUBLIC_URL + "/images/user.svg"}
-                      alt="login"
+                      alt="user"
                     />
-                    <p className="mb-0">
+                    {
+                      authState?.user==='' ? 
+                      <p className="mb-0">
                       Ingresa <br />a tu cuenta
+                    </p>:
+                    <p className="mb-0">
+                      Bienvenid@ <br />{authState?.user?.firstname}
                     </p>
+                    }
                   </Link>
                 </div>
                 <div>

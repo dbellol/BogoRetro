@@ -32,13 +32,16 @@ const SingleProduct = () => {
     useEffect(() => {
         dispatch(getAProduct(getProductId));
     }, [dispatch, getProductId]);
-    useEffect(()=>{
-      for(let index=0; index<carState.length; index++){
-        if(getProductId === carState[index]?.productId?._id){
-          setAlreadyAdded(true)
-        }
+    useEffect(() => {
+      if (Array.isArray(carState)) {
+          for (let index = 0; index < carState.length; index++) {
+              if (getProductId === carState[index]?.productId?._id) {
+                  setAlreadyAdded(true);
+              }
+          }
       }
-    })
+  }, [carState, getProductId]);
+  
     useEffect(() => {
         if (cartUpdateStatus === 'success') {
             toast.success('Producto añadido al carrito exitosamente');
@@ -66,7 +69,7 @@ const SingleProduct = () => {
 
         dispatch(addProdToCart(productData))
             .then(() => {
-                navigate('/cart')
+              navigate('/cart')
             })
             .catch((error) => {
                 // Manejar el error
